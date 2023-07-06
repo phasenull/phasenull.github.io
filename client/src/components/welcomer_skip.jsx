@@ -7,10 +7,10 @@ function WelcomerSkip(prop) {
 			<div className="z-1 transition-transform duration-0 out group-hover:duration-1000 group-hover:-translate-y-4 -translate-x-64 translate-y-32 group-hover:-translate-x-24">
 				<img className="z-1 absolute h-40 hidden group-hover:block rotate-45" src="https://static.vecteezy.com/system/resources/previews/013/743/608/original/cartoon-rocket-launch-png.png" alt="" />
 			</div>
-			<p className="z-[6] relative group-hover:text-white">
+			<div className="z-[6] relative group-hover:text-white">
 				GET STARTED
-				<p className="text-secondary-darkest animate-pulse group-hover:animate-bounce z-6 group-hover:text-secondary"> NOW</p>
-			</p>
+				<div className="text-secondary-darkest animate-pulse group-hover:animate-bounce z-6 group-hover:text-secondary"> NOW</div>
+			</div>
 		</button>
 	);
 }
