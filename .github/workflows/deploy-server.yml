@@ -15,29 +15,7 @@ on:
 env:
   server_webhook: ${{secrets.SERVER_WEBHOOK}}
 jobs:
-  build:
-
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install Dependencies
-        run: |
-          cd server
-          npm i
-      - name: Test Run
-        run: |
-          cd server
-          npm start
-          echo Run Successfull!
   deploy:
-    needs: build
-
     runs-on: ubuntu-latest
 
     strategy:
