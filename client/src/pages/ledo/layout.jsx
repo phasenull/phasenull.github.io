@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom"
 import { Fragment } from "react"
 import {BiArrowBack} from "react-icons/bi"
-const LedoLayout = () => {
+const LedoAuthLayout = () => {
 	let is_on = true
 	function toggle_ui(params) {
 		if (is_on) {
@@ -37,11 +37,6 @@ const LedoLayout = () => {
 						<button className="h-16 shadow navbar-button hover:bg-primary-dark">
 							<p className="relative font-bold text-white text-2xl mx-2">SIGN IN</p>
 						</button>
-						<button id="toggle-navbar" className="group hover:bg-green-400 transform-all duration-300 h-16 w-10 text-center bg-none" onClick={toggle_ui}>
-							<div className="group-hover:animate-shakerotation">
-								<BiArrowBack className="mx-auto group-hover:scale-[150%] scale-[120%] text-secondary-darkest"/>
-							</div>
-						</button>
 					</div>
 					{/* TODO relative left */}
 				</div>
@@ -51,4 +46,4 @@ const LedoLayout = () => {
 	)
 }
 
-export default LedoLayout
+export default LedoAuthLayout

@@ -1,5 +1,5 @@
-const API_URL = window.location.href.includes("localhost") ? "http://192.168.1.47" : "https://phasenull-api.onrender.com"
-const VERSION = "v0.0.1-alpha" + window.location.href.includes("localhost") ? "-dev" : "-live"
+const API_URL = "https://phasenull-api.onrender.com"
+const VERSION = "v0.0.1-alpha" + (window.location.href.includes("localhost") ? "-dev" : "-live")
 async function GET_GROUP_DETAILS(group_id) {
 	return fetch("https://groups.roproxy.com/v1/groups/" + group_id)
 		.then((res) => res.json())
@@ -33,4 +33,15 @@ function GET_DATE() {
 	const date = new Date().toString()
 	return date
 }
-export { GET_GROUP_DETAILS, GET_MODEL_COUNT, GET_SALES, API_URL, FILTER_CLASS , GET_VERSION, GET_DATE}
+
+function IS_LOGGED_IN() {
+	return fetch("https://groups.roproxy.com/v1/groups/" + "8015542")
+		.then((res) => res.json())
+		.then((json) => false)
+}
+function GET_COUNTRIES() {
+	return fetch("https://restcountries.com/v3.1/all")
+		.then((res) => res.json())
+		.then((json) => json)
+}
+export { GET_GROUP_DETAILS, GET_MODEL_COUNT, GET_SALES, API_URL, FILTER_CLASS , GET_VERSION, GET_DATE, IS_LOGGED_IN, GET_COUNTRIES}

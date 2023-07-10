@@ -3,12 +3,14 @@ import Layout from "./pages/layout"
 import RobloxWelcomer from "./pages/ledo/get_started"
 import Welcomer from "./pages/welcome/welcomer"
 import PageNotFound from "./pages/errors/page_not_found"
-import TooLazy from "./pages/2lazy"
 import LedoIndex from "./pages/ledo"
 import PortfolioIndex from "./pages/portfolio"
 import LedoWelcome from "./pages/ledo/welcomer"
-import LedoLayout from "./pages/ledo/layout"
+import LedoAuthLayout from "./pages/ledo/layout"
 import { Helmet } from "react-helmet"
+import DashboardLayout from "./pages/ledo/dashboard/layout"
+import DashboardIndex from "./pages/ledo/dashboard"
+import AuthPanel from "./pages/ledo/dashboard/auth"
 const group_id = 8015542
 
 function App() {
@@ -18,15 +20,17 @@ function App() {
 				<Route path="/" element={<Layout />}>
 					<Route index element={<Welcomer />} />
 					<Route path="portfolio">
-						<Route index element={<PortfolioIndex />}/>
+						<Route index element={<PortfolioIndex />} />
 					</Route>
 					<Route path="ledo/get_started" element={<RobloxWelcomer group_id={group_id} />} />
-					<Route path="ledo" element={<LedoLayout />}>
+					<Route path="ledo/welcome" element={<LedoAuthLayout ><LedoWelcome group_id={group_id} /></LedoAuthLayout>} />
+
+					<Route path="ledo" element={<DashboardLayout />}>
 						<Route index element={<LedoIndex />} />
-						<Route path="welcome" element={<LedoWelcome group_id={group_id} />} />
-					</Route>
-					<Route path="2lazy">
-						<Route index element={<TooLazy />} />
+						<Route path="dashboard">
+							<Route index element={<DashboardIndex />} />
+							<Route path="auth" element={<AuthPanel/>}/>
+						</Route>
 					</Route>
 					<Route path="*" element={<PageNotFound />} status={404}></Route>
 				</Route>
