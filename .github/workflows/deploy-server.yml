@@ -18,9 +18,8 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - shell: pwsh
-        name: Deploy
-        env:
-          SERVER_WEBHOOK: ${{ secrets.SERVER_WEBHOOK }}
-        run: |
-          curl "$SERVER_WEBHOOK"
+      - name: Deploy
+          env:
+            SERVER_WEBHOOK: ${{ secrets.SERVER_WEBHOOK }}
+          run: |
+            curl $SERVER_WEBHOOK
