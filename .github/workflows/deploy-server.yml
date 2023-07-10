@@ -35,12 +35,12 @@ jobs:
             echo node version part ${{ matrix.node-version }}
       - name: Install Dependencies
         run: |
-          cd client
+          cd server
           npm i
-      - name: Test Build
+      - name: Test Run
         run: |
-          npm run build
-          echo Build Successfull!
+          npm start
+          echo Run Successfull!
   deploy:
 
     runs-on: ubuntu-latest
