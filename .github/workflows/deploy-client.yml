@@ -30,8 +30,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-        run: |
-          echo node version part ${{ matrix.node-version }}
+          run: |
+            echo node version part ${{ matrix.node-version }}
       - name: Install Dependencies
         run: |
           cd client
