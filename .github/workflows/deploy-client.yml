@@ -30,17 +30,20 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-          run: |
-            echo node version part
+        run: |
+          echo node version part ${{ matrix.node-version }}
       - name: Install Dependencies
         run: |
           cd client
+        run: |
           npm i
       - name: Test Build
         run: |
-          npm run build --if-present
-          echo build success!!!
-      - name: Print hello
+          npm run build
+          echo Build Successfull!
+      - name: Test Deploy
         run: |
-          echo hello
+          npm i -g serve
+          serve -s build
+          echo Serving!
       # - run: npm run build --if-present
