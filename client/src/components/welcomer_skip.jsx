@@ -52,7 +52,7 @@ function WelcomerSkip(prop) {
 		text-2xl select-none bg-secondary h-32 px-20 text-primary font-bold rounded-full text-center 
 		transition-all duration-500 hover:bg-secondary-darkest">
 			<div id = "planets" className="absolute w-full hidden group-hover:flex -translate-y-14 translate-x-40">
-				<img className="z-1 w-2/3 transition-opacity duration-1000 ease-out opacity-0 select-none group-hover:opacity-100" src="https://www.pinclipart.com/picdir/big/561-5617080_galaxy-space-cosmic-cosmos-nebula-universe-stars-outer.png" alt="" />
+				<img className="z-1 w-2/3 transition-opacity duration-1000 ease-out opacity-0 select-none group-hover:opacity-100" src="/media/galaxy.png	" alt="" />
 			</div>
 			<div id = "rocket" className="z-1 transition-all duration-0 out group-hover:duration-1000 rotate-[30deg] group-hover:-translate-y-4 -translate-x-64 translate-y-32 group-hover:-translate-x-24">
 				<img className="group-hover:animate-shake z-1 absolute h-40 hidden group-hover:block select-none left-5" src="/media/rocket.gif" alt="" />

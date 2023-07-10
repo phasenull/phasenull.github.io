@@ -32,10 +32,12 @@ function TechSwitcher(params) {
 		const techSwitcher_new = document.getElementById("tech-switcher-new");
 		const techSwitcher_old = document.getElementById("tech-switcher-old");
 		let i = 0;
-		const tech = ['JavaScript <img class="inline h-6" src="/media/javascript.png" alt="img" />',
+		const tech = [
+		'JavaScript <img class="inline h-6" src="/media/javascript.png" alt="img" />',
 		'luau <img class="inline h-6" src="/media/luau.png" alt="img" />',
 		'Python <img class="inline h-6" src="/media/Python.png" alt="img" />',
-		'React <img class="inline h-6" src="/media/React.png" alt="img" />'
+		'React <img class="inline h-6" src="/media/React.png" alt="img" />',
+		'NodeJS <img class="inline h-6" src="/media/nodejs.png" alt="img" />'
 	
 	]
 		setInterval(() => {
