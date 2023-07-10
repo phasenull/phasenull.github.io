@@ -1,5 +1,5 @@
-const API_URL = "http://192.168.1.47"
-const VERSION = "v0.0.1-alpha"
+const API_URL = window.location.href.includes("localhost") ? "http://192.168.1.47" : "https://phasenull-api.onrender.com"
+const VERSION = "v0.0.1-alpha" + window.location.href.includes("localhost") ? "-dev" : "-live"
 async function GET_GROUP_DETAILS(group_id) {
 	return fetch("https://groups.roproxy.com/v1/groups/" + group_id)
 		.then((res) => res.json())
