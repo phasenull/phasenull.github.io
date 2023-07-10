@@ -39,6 +39,7 @@ jobs:
           npm i
       - name: Test Build
         run: |
+          cd client
           npm run build
           echo Build Successfull!
   deploy:

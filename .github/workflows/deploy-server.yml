@@ -39,6 +39,7 @@ jobs:
           npm i
       - name: Test Run
         run: |
+          cd server
           npm start
           echo Run Successfull!
   deploy:
