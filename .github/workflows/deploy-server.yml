@@ -19,7 +19,8 @@ jobs:
 
     steps:
       - name: Deploy
+      - shell: pwsh
         env:
           SERVER_WEBHOOK: ${{ secrets.SERVER_WEBHOOK }}
         run: |
-          curl "$env:SERVER_WEBHOOK"
+          curl "$SERVER_WEBHOOK"
