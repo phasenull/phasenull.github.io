@@ -7,13 +7,13 @@ on:
   push:
     branches: [ "master" ]
     paths:
-      - "client/**"
+      - "server/**"
   pull_request:
     branches: [ "master" ]
     paths:
-      - "client/**"
+      - "server/**"
 env:
-  client_webhook: ${{secrets.CLIENT_WEBHOOK}}
+  server_webhook: ${{secrets.SERVER_WEBHOOK}}
 jobs:
   build:
 
@@ -35,12 +35,12 @@ jobs:
             echo node version part ${{ matrix.node-version }}
       - name: Install Dependencies
         run: |
-          cd server
+          cd client
           npm i
-      - name: Test Run
+      - name: Test Build
         run: |
-          npm start
-          echo Run Successfull!
+          npm run build
+          echo Build Successfull!
   deploy:
 
     runs-on: ubuntu-latest
@@ -61,4 +61,4 @@ jobs:
             echo node version part ${{ matrix.node-version }}
       - name: Test Deploy
         run: |
-          curl ${{env.client_webhook}}
+          curl ${{env.server_webhook}}
