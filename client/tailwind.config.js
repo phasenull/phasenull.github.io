@@ -6,25 +6,26 @@ module.exports = {
 			colors: {
 				primary: "#80ed99",
 				"primary-dark": "#57cc99",
-				secondary: "#38a3a5",
-				"secondary-dark": "#35a3a3",
+				secondary: "#5cc9cc",
+				"secondary-dark": "#38a3a5",
 				"secondary-darkest": "#22577a",
 			},
 			animation: {
-				rocket_shake: "shake 1s cubic-bezier(.36,.07,.19,.97) both infinite",
+				shake: "shake 0.15s linear both infinite",
+				"shakerotation": "shakerotation 0.15s linear both infinite",
 			},
 			keyframes: {
-				rocket_shake: {
-					"20%, 90%": { transform: "translate(-1px, 0)" },
-					"20%, 80%": { transform: "translate(2px, 0)" },
-					"30%, 50%, 70%": { transform: "translate(-4px, 0)" },
-					"40%, 60%": { transform: "translate(4px, 0)" },
+				shake: {
+					"0%, 33%": { transform: "translate(-0.5px)" },
+					"33%, 66%": { transform: "translate(0.5px)" },
+					"66%, 100%": { transform: "translate(-0.5px)" },
+				},
+				"shakerotation": {
+					"0%, 33%": { transform: "rotate(3deg)" },
+					"33%, 66%": { transform: "rotate(-3deg)" },
+					"66%, 100%": { transform: "rotate(3deg)" },
 				},
 			},
 		},
 	},
-	plugins: [
-		require("tailwindcss-animation-delay"),
-		// ...
-	],
 }
