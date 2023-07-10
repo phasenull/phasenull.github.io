@@ -16,32 +16,22 @@ env:
   client_webhook: ${{secrets.CLIENT_WEBHOOK}}
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
     - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-        run: |
-          echo node version part ${{ matrix.node-version }}
-      - name: Install Dependencies
-        run: |
-          cd client
-          npm i
-      - name: Test Build
-        run: |
-          cd client
-          npm run build
-          echo Build Successfull!
+    - name: Install Dependencies
+      run: |
+        cd client
+        npm i
+    - name: Test Build
+      run: |
+        cd client
+        npm run build
+        echo Build Successfull!
   deploy:
     needs: build
 
