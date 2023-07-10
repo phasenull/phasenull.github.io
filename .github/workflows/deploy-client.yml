@@ -30,5 +30,12 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: echo hello
+    - name: Install Dependencies
+      - run: cd client
+      - run: npm i
+    - name: Test Build
+      - run: npm run build --if-present
+      - run: echo build success!!!
+    - name: Print hello
+      - run: echo hello
     # - run: npm run build --if-present
