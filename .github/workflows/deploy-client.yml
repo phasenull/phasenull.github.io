@@ -33,11 +33,14 @@ jobs:
           run: |
             echo node version part
       - name: Install Dependencies
-        run: cd client
-        run: npm i
+        run: |
+          cd client
+          npm i
       - name: Test Build
-        run: npm run build --if-present
-        run: echo build success!!!
+        run: |
+          npm run build --if-present
+          echo build success!!!
       - name: Print hello
-        run: echo hello
+        run: |
+          echo hello
       # - run: npm run build --if-present
