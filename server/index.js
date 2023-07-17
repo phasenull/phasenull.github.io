@@ -1,11 +1,14 @@
 const express = require("express")
 const cors = require("cors")
+require("dotenv").config()
 const app = express()
 const port = 80
 const v1_routes = require("./v1")
+const background_worker = require("./background_worker")
+background_worker()
 app.use(
 	cors({
-		origin: ["http://localhost:3000","http://192.168.1.47:3000","http://phase.local:3000","https://phasenull.onrender.com"],
+		origin: ["https://phasenull.onrender.com","https://phasenull.dev"],
 	})
 )
 app.use("/api/v1", v1_routes)
