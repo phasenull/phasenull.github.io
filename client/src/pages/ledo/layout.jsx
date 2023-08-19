@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom"
 import { Fragment } from "react"
-import {BiArrowBack} from "react-icons/bi"
 const LedoAuthLayout = () => {
 	let is_on = true
+	// eslint-disable-next-line no-unused-vars
 	function toggle_ui(params) {
 		if (is_on) {
 			document.getElementById("navbar-buttons").classList.add("-translate-x-[100%]")

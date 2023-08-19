@@ -35,9 +35,10 @@ function GET_DATE() {
 }
 
 function IS_LOGGED_IN() {
-	return fetch("https://groups.roproxy.com/v1/groups/" + "8015542")
-		.then((res) => res.json())
-		.then((json) => false)
+	return true
+	// return fetch("https://groups.roproxy.com/v1/groups/" + "8015542")
+	// 	.then((res) => res.json())
+	// 	.then((json) => false)
 }
 function GET_COUNTRIES() {
 	return fetch("https://restcountries.com/v3.1/all")

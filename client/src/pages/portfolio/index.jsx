@@ -5,9 +5,8 @@ import TechSwitcher from "../../components/tech_switcher"
 import ListItem from '@mui/material/ListItem';
 import Chip from '@mui/material/Chip';
 import Helmet from "react-helmet"
-import { TbTrash, TbTrashFilled } from "react-icons/tb";
+import { TbTrash } from "react-icons/tb";
 function PortfolioIndex(props) {
-	const [is_loaded, setLoaded] = useState(false)
 	const [chipData, setChipData] = useState(
 		[
 			{ tag: "ROBLOX", is_visible: true },
@@ -37,14 +36,25 @@ function PortfolioIndex(props) {
 		})
 		setChipData([].concat(chipData))
 	}
+	function toggle_visibility(element, bool_enabled) {
+		element.classList.remove(bool_enabled ? "hidden" : "block");
+		element.classList.add(bool_enabled ? "block" : "hidden");
+	}
+
 	function handleDelete(chipToDelete) {
 		const data = chipData.find((chip) => chip.tag === chipToDelete)
 		chipData.find(
 			(chip) => chip.tag === chipToDelete
 		).is_visible = !data.is_visible
-		document.querySelectorAll("[tag='" + chipToDelete + "']").forEach(element => {
-			element.classList.remove(data.is_visible ? "hidden" : "block");
-			element.classList.add(data.is_visible ? "block" : "hidden");
+		document.querySelectorAll("[tag*='" + chipToDelete + "']").forEach(element => {
+			let is_visible = false
+			element.attributes.tag.value.split(";").forEach((tag_2) => {
+				if (chipData.find((chip) => chip.tag === tag_2).is_visible) {
+					is_visible = true
+					return
+				}
+			})
+			toggle_visibility(element, is_visible)
 		});
 		setChipData([].concat(chipData));
 	};
@@ -63,7 +73,7 @@ function PortfolioIndex(props) {
 							phasenull
 						</p>
 						<div className="relative font-bold text-secondary-darkest text-sm py-2 px-5 max-w-[100%] overflow-ellipsis md:max-w-xs xl:max-w-sm">
-							Your <TechSwitcher /> developer from Turkey,
+							<TechSwitcher /> developer from Turkey.
 						</div>
 					</div>
 				</div>
@@ -71,7 +81,7 @@ function PortfolioIndex(props) {
 					<p className="relative my-auto text-sm font-bold text-secondary-darkest text-center">
 						Filter Content:
 						<button className="select-none absolute left-0 -top-1 text-red-500 group hover:scale-110" onClick={clearFilter}>
-							Clear <TbTrash className="inline absolute group-hover:animate-shakerotation" size={20}/>
+							Clear <TbTrash className="inline absolute group-hover:animate-shakerotation" size={20} />
 						</button>
 					</p>
 
@@ -81,7 +91,6 @@ function PortfolioIndex(props) {
 								(data) => {
 									return (
 										<div className="mx-auto" key={data.tag}>
-
 											<ListItem >
 												<Chip
 													variant="outlined"
@@ -96,42 +105,23 @@ function PortfolioIndex(props) {
 							)
 						}
 					</div>
-
 				</div>
-				<PortfolioContainer tag="ROBLOX" href="portfolio/work/100">
-					<img className="p-4 rounded-full drop-shadow-2xl shadow-2xl h-max max-h-60 place-self-center md:rounded-[30px]" src="https://media.discordapp.net/attachments/736926100206125058/1121036369515511880/image.png" alt="" />
-					<div className="align-top mx-10 py-4">
-						<p className="font-bold text-primary-dark text-center text-2xl">
-							Morph System
-						</p>
-						<p className="font-bold text-secondary-darkest text-sm text-center my-2 max-w-[300px]">
-							Morph System for <ExternalLink href="https://www.roblox.com/users/128618486/profile">FireAtacck</ExternalLink>
-						</p>
-					</div>
+				<PortfolioContainer tag="ROBLOX" href="portfolio/work/100" title="Morph System">
+					<img className="p-4 drop-shadow-2xl shadow-2xl h-full w-max place-self-center rounded-[30px]"
+						src="https://media.discordapp.net/attachments/736926100206125058/1121036369515511880/image.png" alt="" />
+					Morph System for <ExternalLink href="https://twitter.com/FireAtacck">FireAtacck</ExternalLink>
 				</PortfolioContainer>
-				<PortfolioContainer tag="ROBLOX">
-					<img className="p-4 rounded-full drop-shadow-2xl shadow-2xl h-max max-h-60 place-self-center md:rounded-[30px]" src="https://media.discordapp.net/attachments/736926100206125058/1121036369515511880/image.png" alt="" />
-					<div className="align-top mx-10 py-4">
-						<p className="font-bold text-primary-dark text-center text-2xl">
-							Morph System
-						</p>
-						<p className="font-bold text-secondary-darkest text-sm text-center my-2 max-w-[300px]">
-							Morph System for <ExternalLink href="https://www.roblox.com/users/128618486/profile">FireAtacck</ExternalLink>
-						</p>
-					</div>
+				<PortfolioContainer tag="ROBLOX;JavaScript;React" title="Project Nexus">
+					<img className="p-4 drop-shadow-2xl shadow-2xl h-full w-max place-self-center rounded-[30px]"
+					src="/media/work/nexus/preview.png" alt="" />
+					Remote Roblox Live Server Controller for <ExternalLink href="https://discord.com/users/781001385591701524">north#5920</ExternalLink>
 				</PortfolioContainer>
-				<PortfolioContainer tag="JavaScript">
-					<img className="p-4 rounded-full drop-shadow-2xl shadow-2xl h-max max-h-60 place-self-center md:rounded-[30px]" src="https://media.discordapp.net/attachments/736926100206125058/1121036369515511880/image.png" alt="" />
-					<div className="align-top mx-10 py-4">
-						<p className="font-bold text-primary-dark text-center text-2xl">
-							Some Random JavaScript Content
-						</p>
-						<p className="font-bold text-secondary-darkest text-sm text-center my-2 max-w-[300px]">
-							Morph System for <ExternalLink href="https://www.roblox.com/users/128618486/profile">FireAtacck</ExternalLink>
-						</p>
-					</div>
+				<PortfolioContainer tag="JavaScript;React" title="phasenull.dev">
+					<img className="p-4 drop-shadow-2xl shadow-2xl h-48 w-max place-self-center rounded-[30px]"
+					src="/media/work/phasenulldotdev/preview.png" alt="" />
+					My personal website, made with <ExternalLink href="https://react.dev/">React</ExternalLink> and <ExternalLink href="https://tailwindcss.com/">TailwindCSS</ExternalLink>
 				</PortfolioContainer>
-			</div>
-		</Fragment>)
+			</div >
+		</Fragment >)
 }
 export default PortfolioIndex

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 function TechSwitcher(params) {
 	function animate() {
+		// mess
 		const techSwitcher = document.getElementById("tech-switcher");
 		const techSwitcher_new = document.getElementById("tech-switcher-new");
 		const techSwitcher_old = document.getElementById("tech-switcher-old");
@@ -37,8 +38,8 @@ function TechSwitcher(params) {
 		'luau <img class="inline h-6" src="/media/luau.png" alt="img" />',
 		'Python <img class="inline h-6" src="/media/Python.png" alt="img" />',
 		'React <img class="inline h-6" src="/media/React.png" alt="img" />',
-		'NodeJS <img class="inline h-6" src="/media/nodejs.png" alt="img" />'
-	
+		'NodeJS <img class="inline h-6" src="/media/nodejs.png" alt="img" />',
+		'TailwindCSS <img class="inline w-6" src="/media/tailwindcss.png" alt="img" />'
 	]
 		setInterval(() => {
 			techSwitcher_old.innerHTML = tech[i];

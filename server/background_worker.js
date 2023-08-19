@@ -22,7 +22,7 @@ async function fetch_page(cursor) {
 		})
 }
 async function step() {
-	console.log("background worker step", process.env.COOKIE.slice(0, 40))
+	console.log("background worker step", new Date().toUTCString())
 	fetch("https://phasenull-api.onrender.com/api/v1/sales").then((res) => {
 		console.log("sales api is", res.status == 200?"up":"down")
 	})
@@ -43,7 +43,7 @@ function background_worker(params) {
 	console.log("background worker started!")
 	setInterval(() => {
 		step().then(() => {
-			console.log("background worker step done")
+			// console.log("background worker step done")
 		})
 	}, 10 * 1000)
 }

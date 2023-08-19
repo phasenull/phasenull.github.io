@@ -1,6 +1,4 @@
-import LoadingScreen from '../../components/LoadingScreen';
-import { IS_LOGGED_IN } from '../../util';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 function LedoIndex() {
 	useEffect(() => {
 		document.title = "LEDO | ";

@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import LoadingScreen from "../../../components/LoadingScreen";
 import { IS_LOGGED_IN } from "../../../util";
 function DashboardLayout(props) {
-	const { children } = props;
 	const [is_logged_in, set_is_logged_in] = useState(undefined);
 	if (window.location.pathname === "/ledo/dashboard/auth") { return <Outlet />}
 	else {

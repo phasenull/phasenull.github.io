@@ -1,11 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { Outlet } from "react-router-dom"
 import WelcomerSkip from "../../components/welcomer_skip"
 import { GET_GROUP_DETAILS, GET_MODEL_COUNT, GET_SALES } from "../../util"
 import { useEffect, useState, Component } from "react"
-import { render } from "@testing-library/react"
-import { GoLink } from "react-icons/go"
 import ExternalLink from "../../components/external_link"
 import LoadingScreen from "../../components/LoadingScreen"
 function RobloxWelcomer(props) {

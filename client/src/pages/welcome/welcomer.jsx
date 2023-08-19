@@ -1,14 +1,12 @@
 /* eslint-disable no-unused-vars */
-import { Outlet } from "react-router-dom"
-import WelcomerSkip from "../../components/welcomer_skip"
-import { GET_GROUP_DETAILS, GET_MODEL_COUNT, GET_SALES } from "../../util"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import IndexPaginator from "../../components/index_paginator"
-import Warning from "../../components/warning"
 
 function Welcomer(prop) {
+	
 	useEffect(() => {
 		document.title = "phasenull.dev";
+		window.location.href = "/portfolio"
 	}, [])
 	return (
 		<div className="h-screen pt-24">

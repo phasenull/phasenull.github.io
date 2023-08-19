@@ -1,6 +1,4 @@
-import { useEffect, useState, Component, Fragment } from "react"
-import { Outlet } from "react-router-dom";
-import ReactDOM from "react-dom";
+import { useEffect} from "react"
 function Warning(props) {
 	const { title } = props;
 	const { text } = props;

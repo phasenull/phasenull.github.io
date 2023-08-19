@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import { Fragment, useEffect } from "react"
+import { Fragment} from "react"
 import { GET_DATE, GET_VERSION } from "../util"
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
