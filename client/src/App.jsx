@@ -17,8 +17,8 @@ function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path ="*" element={<PageInProgress/>}/>
-				<Route path="/" element={<Layout />}>
+				<Route path ="/" element={<PageInProgress/>}/>
+				<Route path="*" element={<Layout />}>
 					<Route index element={<Welcomer />} />
 					<Route path="portfolio">
 						<Route index element={<PortfolioIndex />} />
