@@ -10,12 +10,14 @@ import LedoAuthLayout from "./pages/ledo/layout"
 import DashboardLayout from "./pages/ledo/dashboard/layout"
 import DashboardIndex from "./pages/ledo/dashboard"
 import AuthPanel from "./pages/ledo/dashboard/auth"
+import PageInProgress from "./pages/errors/wip"
 const group_id = 8015542
 
 function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
+				<Route path ="*" element={<PageInProgress/>}/>
 				<Route path="/" element={<Layout />}>
 					<Route index element={<Welcomer />} />
 					<Route path="portfolio">

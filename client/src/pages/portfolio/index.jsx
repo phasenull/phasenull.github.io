@@ -114,7 +114,8 @@ function PortfolioIndex(props) {
 				<PortfolioContainer tag="ROBLOX;JavaScript;React" title="Project Nexus">
 					<img className="p-4 drop-shadow-2xl shadow-2xl h-full w-max place-self-center rounded-[30px]"
 					src="/media/work/nexus/preview.png" alt="" />
-					Remote Roblox Live Server Controller for <ExternalLink href="https://discord.com/users/781001385591701524">north#5920</ExternalLink>
+					Remote Roblox Live Server Controller for 
+					<ExternalLink href="https://discord.com/users/781001385591701524">north#5920</ExternalLink>
 				</PortfolioContainer>
 				<PortfolioContainer tag="JavaScript;React" title="phasenull.dev">
 					<img className="p-4 drop-shadow-2xl shadow-2xl h-48 w-max place-self-center rounded-[30px]"
