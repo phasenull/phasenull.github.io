@@ -18,7 +18,7 @@ function App() {
 		<BrowserRouter>
 			<Routes>
 				<Route path ="/" element={<PageInProgress/>}/>
-				<Route path="*" element={<Layout />}>
+				<Route path="/pass/" element={<Layout />}>
 					<Route index element={<Welcomer />} />
 					<Route path="portfolio">
 						<Route index element={<PortfolioIndex />} />
