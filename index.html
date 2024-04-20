@@ -1,9 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Redirectiong</title>
-	<script>
-		window.location.href = "https://phasenull.dev/";
-	</script>
-</head>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<script>
+			async function fetchCaptcha() {
+				const request = await fetch("https://auth.api.fkart.project.phasenull.dev/captcha/challange", { method: "POST" })
+				const result = await request.json()
+				document.getElementById("result").innerText = JSON.stringify(result, undefined, 4)
+				document.getElementById("captcha_input_session_id").value = result.captcha.session_id
+				document.getElementById("captcha_input_code").value = result.captcha.__code
+			}
+			async function validateCaptcha() {
+				const code = document.getElementById("captcha_input_code").value
+				const session = document.getElementById("captcha_input_session_id").value
+				const request = await fetch("https://auth.api.fkart.project.phasenull.dev/captcha/validate", {
+					method: "POST",
+					body: JSON.stringify({
+						captcha_session_id: session,
+						code: code,
+					}),
+					// headers: { "Content-Type": "application/json; charset=UTF-8" },
+				})
+				const result = await request.json()
+				const captcha = result.captcha
+				document.getElementById("result").innerText = JSON.stringify(result, undefined, 4)
+			}
+		</script>
+	</head>
+
+	<body>
+		<h2>OUTPUT</h2>
+		<p id="result"></p>
+		<h3>FETCH CAPTCHA</h3>
+		<button onclick="fetchCaptcha()">Send</button>
+		<h3>VALIDATE CAPTCHA</h3>
+		<input id="captcha_input_session_id" placeholder="session id" type="text" />
+		<input id="captcha_input_code" placeholder="captcha code" type="text" />
+		<button onclick="validateCaptcha()">Send</button>
+	</body>
+</html>
