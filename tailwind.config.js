@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: ["./src/**/*.{js,jsx,ts,tsx}"],
+	mode: "jit",
+
+	darkMode: false,
 	theme: {
 		extend: {
 			colors: {
@@ -8,24 +11,27 @@ module.exports = {
 				"primary-dark": "#57cc99",
 				secondary: "#5cc9cc",
 				"secondary-dark": "#38a3a5",
-				"secondary-darkest": "#22577a",
+				"secondary-darkest": "#22577a"
 			},
 			animation: {
-				shake: "shake 0.15s linear both infinite",
-				"shakerotation": "shakerotation 0.15s linear both infinite",
+				shake: "shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97)"
 			},
 			keyframes: {
 				shake: {
-					"0%, 33%": { transform: "translate(-0.5px)" },
-					"33%, 66%": { transform: "translate(0.5px)" },
-					"66%, 100%": { transform: "translate(-0.5px)" },
-				},
-				"shakerotation": {
-					"0%, 33%": { transform: "rotate(3deg)" },
-					"33%, 66%": { transform: "rotate(-3deg)" },
-					"66%, 100%": { transform: "rotate(3deg)" },
-				},
-			},
-		},
-	},
+					"10%, 90%": {
+						transform: "translate3d(-1px, 0, 0)"
+					},
+					"20%, 80%": {
+						transform: "translate3d(2px, 0, 0)"
+					},
+					"30%, 50%, 70%": {
+						transform: "translate3d(-4px, 0, 0)"
+					},
+					"40%, 60%": {
+						transform: "translate3d(4px, 0, 0)"
+					}
+				}
+			}
+		}
+	}
 }

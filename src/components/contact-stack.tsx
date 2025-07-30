@@ -4,6 +4,7 @@ import youtube_img from "@assets/social/yt_logo_rgb_light.png"
 import github_img from "@assets/social/GitHub_Logo.png"
 import twitter_svg from "@assets/social/Twitter.svg"
 import linkedin_img from "@assets/social/LI-Logo.png"
+import roblox_img from "@assets/social/Roblox_Tilt_Black.png"
 export default function ContactStack() {
 	return (
 		<div
@@ -13,8 +14,11 @@ export default function ContactStack() {
 			<SocialLinkWrapper href={`mailto:${personal_info.contact.email}`}>
 				contact@phasenull.dev
 			</SocialLinkWrapper>
+			<SocialLinkWrapper href={personal_info.contact.roblox}>
+				<SocialImageWrapper url={roblox_img} /> Roblox
+			</SocialLinkWrapper>
 			<SocialLinkWrapper>
-				<SocialImageWrapper url={discord_svg} />
+				<SocialImageWrapper className="mr-1" url={discord_svg} />
 				{personal_info.contact.discord}
 			</SocialLinkWrapper>
 
@@ -25,19 +29,22 @@ export default function ContactStack() {
 				<SocialImageWrapper url={youtube_img} />
 			</SocialLinkWrapper>
 			<SocialLinkWrapper href={personal_info.contact.cursed_platform}>
-				💩 <SocialImageWrapper url={linkedin_img} />
+				<a className="absolute -top-4 -right-2 rotate-[15deg]">💩</a><SocialImageWrapper url={linkedin_img} />
 			</SocialLinkWrapper>
 			<SocialLinkWrapper href={personal_info.contact.twitter}>
-				<SocialImageWrapper url={twitter_svg} /> The bird app
+				<SocialImageWrapper url={twitter_svg} /> Twitter
 			</SocialLinkWrapper>
 		</div>
 	)
 }
-function SocialImageWrapper(props: { url: string; alt?: string }) {
+function SocialImageWrapper(props: { url: string; alt?: string,
+	
+	className?:string
+ }) {
 	return (
 		<img
 			style={{ objectFit: "contain" }}
-			className="h-6 inline-block"
+			className={"h-6 inline-block"+ " " + props.className}
 			alt={props.alt || "no alt text found"}
 			src={props.url}
 		/>
@@ -50,7 +57,7 @@ function SocialLinkWrapper(props: {
 }) {
 	return (
 		<a
-			className="hover:scale-105 font-bold scale-80 lg:scale-100 w-max self-end text-right hover:animate-shake transition-transform duration-150 flex"
+			className="hover:scale-85 lg:hover:scale-105 font-bold scale-80 lg:scale-100 w-max self-end text-right hover:animate-shake transition-transform duration-150 flex"
 			target="_blank"
 			href={props.href}
 		>

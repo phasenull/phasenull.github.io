@@ -18,9 +18,13 @@ export const stack: IState[] = [
 	{ name: "ExpressJS", img: "", type: "library" },
 	{ name: "ReactJS", img: "", type: "library" },
 	{ name: "ElysiaJS", img: "", type: "library" },
+	{ name: "HonoJS", img: "", type: "library" },
 	{ name: "DiscordJS", img: "", type: "library" },
 	{ name: "clear this interval", img: "", type: "hidden" },
 ]
+const API_URL_PROD = "https://api.phasenull.dev"
+const API_URL_DEV = "http://localhost:8787"
+export const API_URL = process.env.NODE_ENV === "dev" ? API_URL_DEV : API_URL_PROD
 export const personal_info = {
    birthdate: new Date("2007/06/01"),
    contact: {
@@ -30,5 +34,6 @@ export const personal_info = {
       youtube:"https://www.youtube.com/@phasenulldev",
       github:"https://github.com/phasenull",
       cursed_platform:"https://www.linkedin.com/in/phasenull",
+      roblox:"https://www.roblox.com/users/409950512/profile",
    }
 }

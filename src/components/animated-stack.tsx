@@ -12,7 +12,7 @@ export default function AnimatedStackComponent() {
 	}, [])
 	return (
 		// <div className="inline-block">
-			`but i mostly do ${stack[view_index].name}`
+			`${stack[view_index].name}`
 		// </div>
 	)
 }

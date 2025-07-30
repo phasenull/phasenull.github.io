@@ -11,7 +11,7 @@ export default function Header() {
 				10
 		) / 10
 	return (
-		<div className="w-[90%] self-center lg:w-[80%] bg-white mt-5 lg:mt-10 px-5 flex-col lg:flex-row flex rounded-[12px] relative lg:justify-between shadow-2xl">
+		<div className="w-[90%] self-center lg:w-[80%] bg-white lg:mt-10 mt-5 px-5 pt-1 flex-col lg:flex-row flex rounded-t-[40px] relative lg:justify-between">
 			<img
 				style={{flex:0.2}}
 				src={avatar}
@@ -21,7 +21,7 @@ export default function Header() {
 			 className="flex-col flex space-y-4">
 				<h1 className="font-bold text-center lg:text-left text-4xl lg:text-6xl">phasenull.dev</h1>
 				<p className="text-sm lg:text-lg h-16">
-					yet another {floored_age} year old self-taught fullstack dev located in <FlagTR/>Türkiye, im flexible about the stack{" "}
+					yet another {floored_age} year old self-taught software dev located in Türkiye <FlagTR/>, im flexible about the stack but i mostly do{" "}
 					<AnimatedStackComponent />
 				</p>
 			</div>
@@ -30,5 +30,5 @@ export default function Header() {
 	)
 }
 function FlagTR() {
-	return <img className="h-5 mx-1 rounded-md inline-block" src={turkiye_flag_svg}></img>
+	return <img className="h-4 lg:h-5 mx-1 rounded-md inline-block" src={turkiye_flag_svg}></img>
 }
