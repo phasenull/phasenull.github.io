@@ -24,8 +24,10 @@ export const stack: IState[] = [
 ]
 const API_URL_PROD = "https://api.phasenull.dev"
 const API_URL_DEV = "http://localhost:8787"
-export const API_URL = process.env.NODE_ENV === "dev" ? API_URL_DEV : API_URL_PROD
+export const ENV = "dev"
+export const API_URL = ENV === "dev" ? API_URL_DEV : API_URL_PROD
 export const personal_info = {
+	pronouns: "he/him",
    birthdate: new Date("2007/06/01"),
    contact: {
       email:"contact@phasenull.dev",
