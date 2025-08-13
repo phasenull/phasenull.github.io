@@ -1,18 +1,23 @@
+import { GoSignIn } from "react-icons/go";
 import { Link, useLocation, type To } from "react-router"
 
 const paths = {
+	"/client-area":"Client Area",
 	"/": "Projects",
-	"/recent-activities": "Recent Activities"
+	"/recent-activities": "Recent Activities",
 }
 
 export default function NavBar() {
 	return (
-		<div className="sticky top-0 lg:justify-end flex flex-row z-200 shadow-lg space-x-4 bg-white px-20 w-full py-5">
+		<div id="navbar" className="sticky top-0 flex items-center flex-row z-200 shadow-lg space-x-4 bg-white justify-center px-4 lg:px-20 w-full py-5">
 			{Object.entries(paths).map(([key, value]) => (
 				<NavButton key={[key, value].join("-")} to={{ pathname: key }}>
 					{value}
 				</NavButton>
 			))}
+			<Link className="lg:block hidden absolute hover:scale-105 transition-all duration-100 text-slate-400 left-0 ml-4" key={"admin"} to={{ pathname: "/admin" }} target="_blank">
+				<GoSignIn size={24} strokeWidth={2}/>
+			</Link>
 		</div>
 	)
 }
@@ -20,6 +25,7 @@ export default function NavBar() {
 function NavButton(props: {
 	to: { pathname: string; search?: string; hash?: string }
 	children: any
+	className?: string
 }) {
 	const path = useLocation()
 	let append: string = ""
@@ -29,7 +35,7 @@ function NavButton(props: {
 	return (
 		<Link to={props.to}>
 			<div
-				className={`hover:scale-105 transition-all duration-100 ${append} underline-offset-5 rounded-t-md px-2 py-1 font-bold text-slate-400`}
+				className={`hover:scale-105 transition-all duration-100 ${append} underline-offset-5 rounded-md px-2 py-1 font-bold text-slate-400 ${props.className} `}
 			>
             {props.children}
 				{/* {JSON.stringify(props.to, undefined, 4)} */}

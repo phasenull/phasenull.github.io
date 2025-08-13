@@ -9,19 +9,26 @@ export function useGetActivities() {
 			const data = await makeAPICall(`${API_URL}/social/get-recent-activities`)
 			return data as {
 				success: boolean
-				activities: {
-					platform: "linkedin" | "discord"
-					content: string
-					media: {
-						url: string
-						type: "image" | "video"
-					}[]
-				}[]
+				activity_list: IActivity[]
+				media_list: IActivityMedia[]
 			}
 		}
 	})
 }
-
+export interface IActivityMedia {
+	id: number
+	activity_id: number
+	created_at: string
+	url: string
+	type: "image" | "video"
+}
+export interface IActivity {
+	id: number
+	content: string
+	created_at: string
+	url: null | string
+	platform: "linkedin" | "youtube" | "twitter" | "post"
+}
 export function useGetAllProjects() {
 	return useQuery({
 		queryKey: ["get_all_projects"],

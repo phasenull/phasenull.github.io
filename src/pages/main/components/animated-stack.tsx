@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { stack } from "../common/constants"
+import { stack } from "../../../common/constants"
 
 export default function AnimatedStackComponent() {
 	const [view_index, set_index] = useState(0)

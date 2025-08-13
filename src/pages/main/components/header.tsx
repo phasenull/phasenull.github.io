@@ -1,5 +1,5 @@
-import avatar from "../assets/phasenull/avatar.jpg"
-import { personal_info } from "../common/constants"
+import avatar from "@assets/phasenull/avatar.jpg"
+import { personal_info } from "../../../common/constants"
 import AnimatedStackComponent from "./animated-stack"
 import ContactStack from "./contact-stack"
 import turkiye_flag_svg from "@assets/phasenull/Flag_of_Turkey.svg"
@@ -11,7 +11,7 @@ export default function Header() {
 			(365 * 24 * 60 * 60 * 1000)
 	)
 	return (
-			<div className="w-[90%] self-center lg:w-[80%] bg-white lg:mt-10 mt-40  px-5 pt-1 flex-col lg:flex-row flex rounded-t-[40px] relative lg:justify-between">
+			<div className="w-[90%] self-center lg:w-[80%] bg-white lg:mt-10 mt-10 px-5 pt-1 flex-col lg:flex-row flex rounded-t-[40px] relative lg:justify-between">
 				<img
 					style={{ flex: 0.2 }}
 					src={avatar}
@@ -20,9 +20,9 @@ export default function Header() {
 				<div style={{ flex: 0.6 }} className="flex-col flex space-y-4">
 					<h1 className="font-bold text-center lg:text-left text-4xl text-slate-800 lg:text-6xl">
 						phasenull.dev
-						<h4 className="text-2xl inline ml-4 text-center align-middle text-slate-300">
+						<a className="text-lg inline ml-2 lg:text-2xl lg:ml-4 text-center align-middle text-slate-300">
 							{personal_info.pronouns}
-						</h4>
+						</a>
 					</h1>
 					<p className="text-sm lg:text-lg h-16">
 						yet another {floored_age} year old self-taught software dev located
