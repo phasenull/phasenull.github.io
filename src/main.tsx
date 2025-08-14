@@ -8,6 +8,9 @@ import Layout from "@pages/main/layout"
 import RecentActivitiesPage from "@pages/main/recent-activities/recent-activities"
 import ClientAreaPage from "@pages/main/client-area"
 import AdminPage from "@pages/admin/admin-index"
+import OAuthCallback from "@pages/admin/oauth/callback"
+import ListSessionsPage from "@pages/admin/list-sessions"
+import AuthorizePage from "@pages/admin/oauth/authorize"
 const client = new QueryClient()
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
@@ -18,9 +21,15 @@ createRoot(document.getElementById("root")!).render(
 						<Route index element={<IndexPage />} />
 						<Route path="recent-activities" element={<RecentActivitiesPage />} />
 						<Route path="client-area/*" element={<ClientAreaPage />} />
-						<Route path="/admin/*" >
+						<Route path="admin/*" >
 							<Route index element={<AdminPage />} />
 							<Route path="activity-manager" element={<div>Activity Manager</div>} />
+							<Route path="list-sessions" element={<ListSessionsPage />} />
+							<Route path="oauth/*">
+								<Route index element={<div>OAuth</div>} />
+								<Route path="callback" element={<OAuthCallback />} />
+								<Route path="authorize" element={<AuthorizePage />} />
+							</Route>
 						</Route>
 					</Routes>
 				</Layout>

@@ -141,7 +141,7 @@ function ActivityContainer(props: {
 				</p>
 				<div className="flex flex-row space-x-4">
 					<p className="text-slate-400">
-						{new Date(activity.created_at).toLocaleString()}
+						{new Date(activity.created_at).toLocaleString("tr")}
 					</p>
 					<Link
 						className="group"

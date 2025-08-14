@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { API_URL } from "./constants"
+import { useAuthStore } from "./oauth.store"
 
 export function useGetActivities() {
 	return useQuery({
@@ -70,8 +71,13 @@ export async function makeAPICall(
 	input: string | URL | globalThis.Request,
 	init?: RequestInit
 ) {
+	const clearAuth = useAuthStore.getState().clearAuth
+
 	console.log(`[api-request]: making api request to `, input)
 	const request = await fetch(input, init)
+	if (request.status === 401) {
+		clearAuth()
+	}
 	const json = await request.json()
 	if (!json)
 		throw new Error("There was an error while fetching data from the server.")

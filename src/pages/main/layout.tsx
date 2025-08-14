@@ -4,10 +4,11 @@ import Header from "./components/header"
 import banner from "@assets/phasenull/banner.jpg"
 import DashboardPanel from "./components/dashboard-panel"
 import { useLocation } from "react-router"
+import AdminLayout from "@pages/admin/admin-layout"
 export default function Layout(props: { children: any }) {
 	const {pathname} = useLocation()
 	console.log(pathname)
-	if (pathname.startsWith("/admin")) return props.children
+	if (pathname.startsWith("/admin")) return <AdminLayout>{props.children}</AdminLayout>
 	return (
 		<div className="h-screen w-screen flex flex-col overflow-x-clip overflow-y-scroll">
 			<img
