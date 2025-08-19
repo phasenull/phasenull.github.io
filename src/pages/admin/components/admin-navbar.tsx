@@ -3,9 +3,10 @@ import { Link, useLocation, type To } from "react-router"
 import AdminProfile from "./admin-profile";
 
 const paths = {
-	"/": "Home",
 	"/admin": "Dash",
-	"/admin/manage-activities":"Manage Activities",
+	"/admin/status":"Status",
+	"/admin/manage-activities":"Activities",
+	"/admin/manage-projects":"Projects",
 	"/admin/list-sessions": "List Sessions",
 	// "/recent-activities": "Recent Activities",
 }

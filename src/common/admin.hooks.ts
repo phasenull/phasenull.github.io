@@ -52,9 +52,10 @@ export function useGetSessions() {
 			return response.sessions as Array<{
 				id: string
 				user_id: string
-				ip_address: string
+				ip: string
 				user_agent: string
 				created_at: string
+				data:any
 			}>
 		},
 		initialPageParam: 1,
@@ -75,5 +76,27 @@ export function useGetAuthorizeLink() {
 			return response.url as string
 		},
 		staleTime: 15 * 1000
+	})
+}
+
+
+export function useGetUsage() {
+	const access_token = useAuthStore((state) => state.access_token)
+	return useQuery({
+		queryKey: ["getUsage", access_token],
+		queryFn: async () => {
+			if (!access_token) throw new Error("Missing access token")
+			const response = await makeAPICall(`${API_URL}/admin/usage`, {
+				headers: {
+					Authorization: `Bearer ${access_token}`
+				}
+			})
+			if (!response.success) throw new Error(response.message)
+			return response.usage as {
+				total_requests: number
+				remaining_requests: number
+				reset_at: string
+			}
+		}
 	})
 }

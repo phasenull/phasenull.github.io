@@ -11,6 +11,7 @@ import AdminPage from "@pages/admin/admin-index"
 import OAuthCallback from "@pages/admin/oauth/callback"
 import ListSessionsPage from "@pages/admin/list-sessions"
 import AuthorizePage from "@pages/admin/oauth/authorize"
+import StatusPage from "@pages/admin/status"
 const client = new QueryClient()
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
@@ -19,12 +20,19 @@ createRoot(document.getElementById("root")!).render(
 				<Layout>
 					<Routes>
 						<Route index element={<IndexPage />} />
-						<Route path="recent-activities" element={<RecentActivitiesPage />} />
+						<Route
+							path="recent-activities"
+							element={<RecentActivitiesPage />}
+						/>
 						<Route path="client-area/*" element={<ClientAreaPage />} />
-						<Route path="admin/*" >
+						<Route path="admin/*">
 							<Route index element={<AdminPage />} />
-							<Route path="activity-manager" element={<div>Activity Manager</div>} />
+							<Route
+								path="activity-manager"
+								element={<div>Activity Manager</div>}
+							/>
 							<Route path="list-sessions" element={<ListSessionsPage />} />
+							<Route path="status" element={<StatusPage />} />
 							<Route path="oauth/*">
 								<Route index element={<div>OAuth</div>} />
 								<Route path="callback" element={<OAuthCallback />} />

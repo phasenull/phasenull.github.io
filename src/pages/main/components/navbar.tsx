@@ -2,7 +2,7 @@ import { GoSignIn } from "react-icons/go";
 import { Link, useLocation, type To } from "react-router"
 
 const paths = {
-	"/client-area":"Client Area",
+	// "/client-area":"Client Area",
 	"/": "Projects",
 	"/recent-activities": "Recent Activities",
 }
@@ -35,7 +35,7 @@ function NavButton(props: {
 	return (
 		<Link to={props.to}>
 			<div
-				className={`hover:scale-105 transition-all duration-100 ${append} underline-offset-5 rounded-md px-2 py-1 font-bold text-slate-400 ${props.className} `}
+				className={`hover:scale-105 text-center transition-all duration-100 ${append} underline-offset-5 rounded-md px-2 py-1 font-bold text-slate-400 ${props.className} `}
 			>
             {props.children}
 				{/* {JSON.stringify(props.to, undefined, 4)} */}

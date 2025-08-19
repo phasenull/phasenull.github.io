@@ -10,7 +10,7 @@ export default function AdminLayout(props: { children: any }) {
 	} else if (!access_token) {
 		return <Navigate to={"/admin/oauth/authorize"} />
 	}
-
+	document.title = "phasenull.dev - Admin Page"
 	return (
 		<div className="h-screen w-screen flex flex-col overflow-x-clip overflow-y-scroll">
 			<NavBar />
