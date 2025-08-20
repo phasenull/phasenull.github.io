@@ -9,7 +9,7 @@ export default function ContactStack() {
 	return (
 		<div
 			style={{ flex: 0.2 }}
-			className="place-self-center place-items-center lg:place-items-end my-2 lg:justify-around lg:grid-cols-1 grid md:grid-cols-4 grid-cols-2 lg:space-y-4 lg:space-x-0 mt-2"
+			className="place-self-center place-items-center lg:place-items-end my-2 lg:grid-cols-1 lg:grid justify-evenly flex flex-wrap lg:space-y-4 lg:space-x-0 mt-2"
 		>
 			<SocialLinkWrapper href={`mailto:${personal_info.contact.email}`}>
 				contact@phasenull.dev
@@ -57,7 +57,7 @@ function SocialLinkWrapper(props: {
 }) {
 	return (
 		<a
-			className="hover:scale-85 lg:hover:scale-105 font-bold scale-80 lg:scale-100 w-max self-end text-right hover:animate-shake transition-transform duration-150 flex"
+			className="hover:scale-85  lg:hover:scale-105 font-bold scale-80 lg:scale-100 w-max self-end text-right transition-transform duration-150 flex"
 			target="_blank"
 			href={props.href}
 		>
