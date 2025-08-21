@@ -1,4 +1,5 @@
 import { HOST_URL } from "@common/constants"
+import { FaExternalLinkAlt } from "react-icons/fa"
 import { GoSignIn } from "react-icons/go"
 import { Link, useLocation, type To } from "react-router"
 
@@ -26,7 +27,7 @@ export default function NavBar() {
 				style={{color:"oklch(69.6% 0.17 162.48)"}}  key={"download-a-copy"}
 				className={`hover:scale-105 text-center transition-all duration-100 underline-offset-5 rounded-md px-2 py-1 font-bold text-slate-400`}
 			>
-				Download a Copy
+				Get Resume <FaExternalLinkAlt className="inline-block mb-1" size={8} />
 				{/* {JSON.stringify(props.to, undefined, 4)} */}
 			</a>
 			<Link

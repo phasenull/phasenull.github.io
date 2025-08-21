@@ -1,6 +1,7 @@
 import { personal_info } from "@common/constants"
 import { useGetAllProjects } from "@common/hooks"
 import { tokenizeProjectContent } from "@common/util"
+import { FaExternalLinkAlt } from "react-icons/fa"
 import { Link } from "react-router"
 
 export default function ProjectsBody() {
@@ -123,6 +124,7 @@ export default function ProjectsBody() {
 												href={e.url}
 											>
 												{e.text}
+												<FaExternalLinkAlt className="inline-block mb-1 ml-1" size={8} />
 											</a>
 										)
 									case "br": {

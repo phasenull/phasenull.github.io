@@ -11,6 +11,7 @@ import arrow_right from "@assets/arrow_right.svg"
 import arrow_left from "@assets/arrow_left.svg"
 import { BiLink } from "react-icons/bi"
 import { HOST_URL } from "@common/constants"
+import { FaExternalLinkAlt } from "react-icons/fa"
 export default function RecentActivitiesPage() {
 	const { data, isLoading, isFetching } = useGetActivities()
 	const { hash } = useLocation()
@@ -103,7 +104,7 @@ export default function RecentActivitiesPage() {
 				</React.Fragment>,
 				document.body
 			)}
-			<div className="justify-center flex flex-col mb-20 space-y-5 pt-20">
+			<div className=" justify-center flex flex-col mb-20 space-y-5 pt-20">
 				{data?.activity_list.map((activity, index) => (
 					<ActivityContainer
 						key={[activity.id, activity.platform].join("-")}
@@ -134,9 +135,9 @@ function ActivityContainer(props: {
 					<a
 						href={activity.url!}
 						target="_blank"
-						className="underline text-blue-400"
+						className="text-blue-400"
 					>
-						{activity.platform}
+						{activity.platform} <FaExternalLinkAlt className="inline-block mb-1" size={8} />
 					</a>
 				</p>
 				<div className="flex flex-row space-x-4">

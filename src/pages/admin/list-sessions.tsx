@@ -18,7 +18,7 @@ export default function ListSessionsPage() {
 								key={session.id}
 							>
 								{/* <pre>{JSON.stringify(session,undefined,4)}</pre> */}
-								<div className="flex-col justify-between h-full bg-red-400 flex">
+								<div className="flex-col justify-between h-full flex">
 									<ProfileBanner data={session.data} />
 									<span>
 										<p>ID: {session.id}</p>
@@ -26,7 +26,7 @@ export default function ListSessionsPage() {
 										<p>IP: {session.ip}</p>
 									</span>
 								</div>
-								<pre className="resize w-80 max-w-240 min-w-80 min-h-20 overflow-scroll bg-slate-200">
+								<pre className="resize select-all w-80 max-w-240 min-w-80 min-h-20 overflow-scroll bg-slate-200">
 									{JSON.stringify(session.data, undefined, 4)}
 								</pre>
 							</li>
