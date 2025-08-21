@@ -33,7 +33,7 @@ export default function Header() {
 					quick disclaimer: if you're seeing this it means this is a development
 					version of this site.
 					<br />
-					expect things not to work. [22/02/2025]
+					expect things not to work. [22/08/2025]
 				</p>
 			</div>
 			<ContactStack />
