@@ -50,7 +50,7 @@ export function tokenizeProjectContent(paragraph: string) {
 
 	return tokens as (
 		| { type: "text" | "headline"; text: string }
-		| { type: "ghostlink" | "image"; text: string; url: string }
+		| { type: "ghostlink" | "image" | "video"; text: string; url: string }
 		| { type: "br" }
 	)[]
 }

@@ -146,6 +146,13 @@ export default function ProjectsBody() {
 												{e.text}
 											</h2>
 										)
+									case "video":
+										return (
+											<video key={i} controls className="max-w-full">
+												<source src={e.url} type="video/mp4" />
+												Your browser does not support the video tag.
+											</video>
+										)
 								}
 							})}
 						</div>
