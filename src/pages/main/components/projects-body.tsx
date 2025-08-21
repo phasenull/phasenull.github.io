@@ -137,7 +137,7 @@ export default function ProjectsBody() {
 												key={i}
 												src={e.url}
 												alt={e.text}
-												className="max-w-full"
+												className="max-w-200 rounded-2xl"
 											/>
 										)
 									case "headline":
@@ -148,7 +148,7 @@ export default function ProjectsBody() {
 										)
 									case "video":
 										return (
-											<video key={i} controls className="max-w-full">
+											<video key={i} controls className="max-w-200 rounded-2xl">
 												<source src={e.url} type="video/mp4" />
 												Your browser does not support the video tag.
 											</video>
