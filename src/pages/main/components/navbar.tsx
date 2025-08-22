@@ -25,18 +25,19 @@ export default function NavBar() {
 				href={`${HOST_URL}/download-a-copy`}
 				target="_blank"
 				style={{color:"oklch(69.6% 0.17 162.48)"}}  key={"download-a-copy"}
-				className={`hover:scale-105 text-center transition-all duration-100 underline-offset-5 rounded-md px-2 py-1 font-bold text-slate-400`}
+				className={`hover:scale-105 text-center transition-all duration-100 underline-offset-5 rounded-md px-2 py-1 font-bold text-slate-500`}
 			>
 				Get Resume <FaExternalLinkAlt className="inline-block mb-1" size={8} />
 				{/* {JSON.stringify(props.to, undefined, 4)} */}
 			</a>
 			<Link
-				className="lg:block hidden absolute hover:scale-105 transition-all duration-100 text-slate-400 left-0 ml-4"
+				className="lg:flex flex-col justify-center hidden absolute hover:scale-105 transition-all duration-100 font-bold text-slate-500 left-0 ml-4"
 				key={"admin"}
 				to={{ pathname: "/admin" }}
 				target="_blank"
 			>
-				<GoSignIn size={24} strokeWidth={2} />
+				Admin
+				<GoSignIn className="self-center" size={24} strokeWidth={2} />
 			</Link>
 		</div>
 	)
@@ -59,7 +60,7 @@ function NavButton(props: {
 				style={props.style
 					
 				}
-				className={`hover:scale-105 text-center transition-all duration-100 underline-offset-5 rounded-md px-2 py-1 font-bold text-slate-400 ${append} ${props.className} `}
+				className={`hover:scale-105 text-center transition-all duration-100 underline-offset-5 rounded-md px-2 py-1 font-bold text-slate-500 ${append} ${props.className} `}
 			>
 				{props.children}
 				{/* {JSON.stringify(props.to, undefined, 4)} */}

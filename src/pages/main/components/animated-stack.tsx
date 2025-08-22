@@ -11,8 +11,8 @@ export default function AnimatedStackComponent() {
 		return () => clearInterval(controller)
 	}, [])
 	return (
-		// <div className="inline-block">
-			`${stack[view_index].name}`
-		// </div>
+		<div className="inline-block font-semibold">
+			{stack[view_index].name}
+		</div>
 	)
 }
