@@ -1,11 +1,11 @@
 import { tokenizeProjectContent } from "@common/util"
+import { Link } from "react-router"
 
 export default function ProjectsBodyStackContainer(props: { stack: any }) {
 	const { stack } = props
 	return (
-		<a
-			href={stack.url}
-			target="_blank"
+		<Link
+			to={{hash: `consent=${stack.url}`}}
 			key={stack.id}
 			className="group relative bg-white rounded-xl justify-center flex text-sm text-slate-400"
 		>
@@ -33,6 +33,6 @@ export default function ProjectsBodyStackContainer(props: { stack: any }) {
 					})}
 				</p>
 			</span>
-		</a>
+		</Link>
 	)
 }

@@ -13,7 +13,7 @@ export default function Layout(props: { children: any }) {
 		<div className="h-screen w-screen flex flex-col overflow-x-clip overflow-y-scroll">
 			<img
 				style={{ objectFit: "cover" }}
-				className="h-144 lg:h-80 overflow-x-hidden scale-100 -z-10 absolute"
+				className="h-144 lg:h-[40%] overflow-x-hidden scale-100 -z-10 absolute"
 				src={banner}
 			/>
 			<Header />

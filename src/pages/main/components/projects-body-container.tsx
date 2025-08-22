@@ -43,7 +43,7 @@ export default function ProjectsBodyContainer(props: { tokens: any[] }) {
 								key={i}
 								src={e.url}
 								alt={e.text}
-								className="max-w-200 rounded-2xl"
+								className="max-w-200 w-full rounded-2xl"
 							/>
 						)
 					case "headline":
@@ -54,7 +54,7 @@ export default function ProjectsBodyContainer(props: { tokens: any[] }) {
 						)
 					case "video":
 						return (
-							<video key={i} controls className="max-w-200 rounded-2xl">
+							<video key={i} controls className="max-w-200 w-full rounded-2xl">
 								<source src={e.url} type="video/mp4" />
 								Your browser does not support the video tag.
 							</video>
