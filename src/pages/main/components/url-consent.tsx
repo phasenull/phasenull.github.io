@@ -1,4 +1,5 @@
 import { createPortal } from "react-dom"
+import { FaExternalLinkAlt } from "react-icons/fa"
 import { Link, useLocation } from "react-router"
 
 export default function UrlConsent() {
@@ -13,7 +14,7 @@ export default function UrlConsent() {
 		<div className="h-screen w-screen absolute top-0 z-200 flex items-center justify-center overflow-hidden">
 			<div className="bg-white p-6 max-w-[90%] rounded-lg z-300">
 				<p className="text-[15px]">
-					Do you want to visit this url in new page? <br />
+					Do you want to visit this url in a new page? <br />
 					<span className="font-semibold">{consent_url}</span>
 				</p>
 				<div className="flex justify-center space-x-10 mt-4">
@@ -22,7 +23,7 @@ export default function UrlConsent() {
 						target="_blank"
 						className="hover:scale-105 bg-emerald-400 text-white px-4 py-2 rounded-lg"
 					>
-						Yes
+						Yes <FaExternalLinkAlt className="inline-block mb-1 ml-1" size={14} />
 					</a>
 					<Link
 						to={{ hash: "" }}
