@@ -1,21 +1,15 @@
-import { HOST_URL } from "@common/constants"
+import { HOST_URL, navbar_paths } from "@common/constants"
 import { FaExternalLinkAlt } from "react-icons/fa"
 import { GoSignIn } from "react-icons/go"
 import { Link, useLocation, type To } from "react-router"
-
-const paths = {
-	// "/client-area":"Client Area",
-	"/": "Projects",
-	"/recent-activities": "Recent Activities"
-}
 
 export default function NavBar() {
 	return (
 		<div
 			id="navbar"
-			className="sticky top-0 flex items-center flex-row z-200 shadow-lg space-x-4 bg-white justify-center px-4 lg:px-20 w-full py-5"
+			className="sticky top-0 flex items-center flex-row z-100 shadow-lg space-x-4 bg-white justify-center px-4 lg:px-20 w-full py-5"
 		>
-			{Object.entries(paths).map(([key, value]) => (
+			{Object.entries(navbar_paths).map(([key, value]) => (
 				<NavButton key={[key, value].join("-")} to={{ pathname: key }}>
 					{value}
 				</NavButton>
@@ -30,15 +24,6 @@ export default function NavBar() {
 				Get Resume <FaExternalLinkAlt className="inline-block mb-1" size={8} />
 				{/* {JSON.stringify(props.to, undefined, 4)} */}
 			</a>
-			<Link
-				className="lg:flex flex-col justify-center hidden absolute hover:scale-105 transition-all duration-100 font-bold text-slate-500 left-0 ml-4"
-				key={"admin"}
-				to={{ pathname: "/admin" }}
-				target="_blank"
-			>
-				Admin
-				<GoSignIn className="self-center" size={24} strokeWidth={2} />
-			</Link>
 		</div>
 	)
 }

@@ -50,6 +50,10 @@ export function useGetAllProjects() {
 }
 interface IProject {
 	id: number
+	org_id: number | null
+	disclaimer: string | null
+	url: string | null
+	repo_url: string | null
 	created_at: string
 	title: string
 	description: string
