@@ -30,7 +30,7 @@ export default function ProjectsBody() {
 				const tokens = tokenizeProjectContent(project.description)
 				return (
 					<div
-						className="bg-blue-50 shadow-md w-[90%] mt-10 border-slate-300 border-1 rounded-xl justify-center lg:max-w-300 px-4 py-2 lg:px-10 lg:py-5 self-center flex flex-col"
+						className="bg-blue-50 shadow-md w-[90%] mt-10 border-slate-300 border-1 rounded-xl justify-center lg:max-w-200 px-4 py-4 lg:px-10 lg:py-10 self-center flex flex-col"
 						key={project.id}
 					>
 						<h1 className="text-2xl text-slate-500 lg:text-3xl font-bold text-center my-10">

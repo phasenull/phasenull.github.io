@@ -104,7 +104,7 @@ export default function RecentActivitiesPage() {
 				</React.Fragment>,
 				document.body
 			)}
-			<div className=" justify-center flex flex-col mb-20 space-y-5 pt-20">
+			<div id="activities" className=" justify-center content-center flex flex-wrap lg:gap-x-4 mb-20 gap-y-5 pt-20">
 				{data?.activity_list.map((activity, index) => (
 					<ActivityContainer
 						key={[activity.id, activity.platform].join("-")}

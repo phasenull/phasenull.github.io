@@ -14,7 +14,7 @@ export default function UrlConsent() {
 		<div className="h-screen w-screen absolute top-0 z-200 flex items-center justify-center overflow-hidden">
 			<div className="bg-white p-6 max-w-[90%] rounded-lg z-300">
 				<p className="text-[15px]">
-					Do you want to visit this url in a new page? <br />
+					Would you like to visit this url in a new page? <br />
 					<span className="font-semibold">{consent_url}</span>
 				</p>
 				<div className="flex justify-center space-x-10 mt-4">

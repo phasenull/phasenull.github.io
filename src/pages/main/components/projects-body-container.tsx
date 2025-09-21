@@ -1,4 +1,5 @@
 import { FaExternalLinkAlt } from "react-icons/fa"
+import VideoWrapper from "./video-wrapper"
 
 export default function ProjectsBodyContainer(props: { tokens: any[] }) {
 	const { tokens } = props
@@ -54,10 +55,10 @@ export default function ProjectsBodyContainer(props: { tokens: any[] }) {
 						)
 					case "video":
 						return (
-							<video key={i} controls className="max-h-200 w-full rounded-2xl">
+							<VideoWrapper key={i} controls className="max-h-200 w-full rounded-2xl">
 								<source src={e.url} type="video/mp4" />
 								Your browser does not support the video tag.
-							</video>
+							</VideoWrapper>
 						)
 				}
 			})}
