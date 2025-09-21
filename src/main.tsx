@@ -21,7 +21,11 @@ createRoot(document.getElementById("root")!).render(
 					<Routes>
 						<Route index element={<IndexPage />} />
 						<Route
-							path="recent-activities"
+							path="pinboard"
+							element={<RecentActivitiesPage />}
+						/>
+						<Route
+							path="career"
 							element={<RecentActivitiesPage />}
 						/>
 						<Route path="client-area/*" element={<ClientAreaPage />} />
