@@ -1,6 +1,5 @@
 import avatar from "@assets/phasenull/avatar.jpg"
 import { ENV, personal_info } from "../../../common/constants"
-import AnimatedStackComponent from "./animated-stack"
 import ContactStack from "./contact-stack"
 import turkiye_flag_svg from "@assets/phasenull/Flag_of_Turkey.svg"
 import NavBar from "./navbar"
@@ -26,8 +25,7 @@ export default function Header() {
 				</h1>
 				<p className="text-sm lg:text-lg h-max ">
 					yet another {floored_age} year old self-taught software dev located in
-					Türkiye <FlagTR />, im flexible about the stack but i mostly do{" "}
-					<AnimatedStackComponent />
+					Türkiye <FlagTR />
 					{
 					// ENV === "dev"
 					true
