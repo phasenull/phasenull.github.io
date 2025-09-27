@@ -45,7 +45,7 @@ export default function ProjectsBody() {
 									}
 								)}
 								{" - "}
-								{new Date(project.project_end_date).toLocaleString("default", {
+								{project.project_end_date === null ? "ONGOING" : new Date(project.project_end_date).toLocaleString("default", {
 									month: "long",
 									year: "numeric"
 								})}
