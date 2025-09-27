@@ -35,7 +35,7 @@ export default function Header() {
 				<h1 className="text-sm lg:text-lg h-max ">
 					yet another {floored_age} year old self-taught software dev located in
 					Türkiye <FlagTR />
-					{ENV === "dev" ? (
+					{ENV === "dev" || true ? (
 						<Fragment>
 							<br />
 							<br />
