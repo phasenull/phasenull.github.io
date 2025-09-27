@@ -21,6 +21,7 @@ export default function UrlConsent() {
 					<a
 						href={consent_url}
 						target="_blank"
+						onClick={() => (window.location.hash = "")}
 						className="hover:scale-105 bg-emerald-400 text-white px-4 py-2 rounded-lg"
 					>
 						Yes <FaExternalLinkAlt className="inline-block mb-1 ml-1" size={14} />
