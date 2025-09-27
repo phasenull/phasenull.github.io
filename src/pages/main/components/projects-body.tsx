@@ -43,7 +43,7 @@ export default function ProjectsBody() {
 										className="absolute top-0 left-0 mb-1 ml-1 text-rose-600"
 										size={30}
 									/>
-									<div className="absolute text-[12px] lg:text-[16px] p-2 w-min-1200 font-normal bg-white border-slate-400 border-1 w-max max-w-[240px] text-slate-400 text-sm top-0 right-5 group-active:block lg:group-hover:block hidden">
+									<div className="absolute text-[12px] lg:text-[16px] p-2 w-min-1200 font-normal bg-white border-slate-400 border-1 w-max max-w-[240px] text-slate-400 text-sm top-0 right-5 group-active:block sm:group-hover:block hidden">
 										{project.disclaimer}
 									</div>
 								</span>
