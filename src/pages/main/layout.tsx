@@ -8,7 +8,6 @@ import AdminLayout from "@pages/admin/admin-layout"
 import { navbar_paths } from "@common/constants"
 export default function Layout(props: { children: any }) {
 	const { pathname } = useLocation()
-	console.log(pathname)
 	const path_title = Object.values(navbar_paths).find(
 		(_, i) => Object.keys(navbar_paths)[i] === pathname
 	)

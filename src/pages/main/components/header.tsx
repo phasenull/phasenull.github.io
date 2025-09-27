@@ -35,14 +35,14 @@ export default function Header() {
 				<h1 className="text-sm lg:text-lg h-max ">
 					yet another {floored_age} year old self-taught software dev located in
 					Türkiye <FlagTR />
-					{ENV === "deva" ? (
+					{ENV === "dev" ? (
 						<Fragment>
 							<br />
 							<br />
 							quick disclaimer: if you're seeing this text it means this is a
 							development version of this site.
 							<br />
-							expect things not to work. [22/08/2025]
+							expect things not to work. [27/09/2025]
 							<br />
 						</Fragment>
 					) : null}

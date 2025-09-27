@@ -11,7 +11,7 @@ export function useGetAccessTokenFromOAuthCode(code: string|null, state: string|
 		queryFn: async () => {
          if (!code || !state) throw new Error("Missing code or state")
          const oauth_data = await makeAPICall(`${API_URL}/oauth/callback?${new URLSearchParams({ code, state })}`,{method:"POST"})
-         console.log(oauth_data)
+         // console.log(oauth_data)
          if (oauth_data.success && oauth_data.user && oauth_data.access_token) {
             setAuth({
                access_token: oauth_data.access_token,

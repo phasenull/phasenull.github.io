@@ -1,5 +1,6 @@
 import { FaExternalLinkAlt } from "react-icons/fa"
 import VideoWrapper from "./video-wrapper"
+import { Link } from "react-router"
 
 export default function ProjectsBodyContainer(props: { tokens: any[] }) {
 	const { tokens } = props
@@ -8,7 +9,6 @@ export default function ProjectsBodyContainer(props: { tokens: any[] }) {
 		<div>
 			{tokens.map((e, i) => {
 				const previous_element = tokens[i - 1]
-				console.log(e)
 				switch (e.type) {
 					case "text":
 						return (
@@ -21,18 +21,17 @@ export default function ProjectsBodyContainer(props: { tokens: any[] }) {
 						)
 					case "ghostlink":
 						return (
-							<a
-								target="_blank"
+							<Link
 								className="font-bold text-blue-400 text-xs  lg:text-[16px]"
 								key={i}
-								href={e.url}
+								to={{hash: `consent=${e.url}`}}
 							>
 								{e.text}
 								<FaExternalLinkAlt
 									className="inline-block mb-1 ml-1"
 									size={8}
 								/>
-							</a>
+							</Link>
 						)
 					case "br": {
 						if (previous_element.type === "headline") return

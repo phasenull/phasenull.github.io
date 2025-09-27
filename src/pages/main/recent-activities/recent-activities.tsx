@@ -163,7 +163,7 @@ function ActivityContainer(props: {
 				style={{ scrollbarWidth: "none" }}
 				className={`bg-slate-100 mt-4 ${
 					media_list.length > 1
-						? "flex flex-row  h-40"
+						? "flex flex-row h-full bg-red-400"
 						: "justify-center items-center flex h-max max-h-80"
 				} overflow-x-scroll overflow-y-hidden space-x-4`}
 			>
