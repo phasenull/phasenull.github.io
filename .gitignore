@@ -17,6 +17,7 @@ public
 .vscode/*
 !.vscode/extensions.json
 .idea
+.wrangler/*
 .DS_Store
 *.suo
 *.ntvs*
