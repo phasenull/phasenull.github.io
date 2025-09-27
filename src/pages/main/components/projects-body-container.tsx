@@ -1,6 +1,7 @@
 import { FaExternalLinkAlt } from "react-icons/fa"
 import VideoWrapper from "./video-wrapper"
 import { Link } from "react-router"
+import { cleanURL } from "@common/util"
 
 export default function ProjectsBodyContainer(props: { tokens: any[] }) {
 	const { tokens } = props
@@ -24,7 +25,7 @@ export default function ProjectsBodyContainer(props: { tokens: any[] }) {
 							<Link
 								className="font-bold text-blue-400 text-xs  lg:text-[16px]"
 								key={i}
-								to={{hash: `consent=${e.url}`}}
+								to={{ hash: `consent=${e.url}` }}
 							>
 								{e.text}
 								<FaExternalLinkAlt
@@ -41,21 +42,25 @@ export default function ProjectsBodyContainer(props: { tokens: any[] }) {
 						return (
 							<img
 								key={i}
-								src={e.url}
+								src={cleanURL(e.url)}
 								alt={e.text}
 								className="max-h-200 object-contain object-left w-full rounded-2xl"
 							/>
 						)
 					case "headline":
 						return (
-							<h2 key={i} className="text-xl mt-2 font-bold">
+							<h2 key={i} className="text-xl text-slate-500 mt-2 font-bold">
 								{e.text}
 							</h2>
 						)
 					case "video":
 						return (
-							<VideoWrapper key={i} controls className="max-h-200 w-full rounded-2xl">
-								<source src={e.url} type="video/mp4" />
+							<VideoWrapper
+								key={i}
+								controls
+								className="max-h-200 w-full rounded-2xl"
+							>
+								<source src={cleanURL(e.url)} type="video/mp4" />
 								Your browser does not support the video tag.
 							</VideoWrapper>
 						)

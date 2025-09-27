@@ -4,6 +4,7 @@ import ContactStack from "./contact-stack"
 import turkiye_flag_svg from "@assets/phasenull/Flag_of_Turkey.svg"
 import NavBar from "./navbar"
 import { Fragment } from "react/jsx-runtime"
+import { cleanURL } from "@common/util"
 export default function Header() {
 	const floored_age = Math.floor(
 		(Date.now() - personal_info.birthdate.getTime()) /
@@ -24,9 +25,9 @@ export default function Header() {
 					<a className="font-bold flex flex-col lg:flex-row text-center lg:text-left text-4xl text-slate-800 lg:text-6xl">
 						phasenull.dev
 						<br />
-						<a className="text-lg lg:hidden font-bold lg:text-2xl  text-slate-300">
+						<p className="text-lg lg:hidden font-bold lg:text-2xl  text-slate-300">
 							{personal_info.pronouns}
-						</a>
+						</p>
 					</a>
 					<a className="text-lg hidden lg:inline font-bold lg:text-2xl  text-slate-300">
 						{personal_info.pronouns}

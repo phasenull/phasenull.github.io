@@ -5,6 +5,7 @@ import github_img from "@assets/social/github.svg"
 import twitter_svg from "@assets/social/Twitter.svg"
 import linkedin_img from "@assets/social/linkedin.svg"
 import roblox_img from "@assets/social/Roblox_Tilt_Black.png"
+import { cleanURL } from "@common/util"
 export default function ContactStack() {
 	return (
 		<>
@@ -18,23 +19,23 @@ export default function ContactStack() {
 				<SocialLinkWrapper className="hidden lg:inline-block select-all">
 					{personal_info.contact.email}
 				</SocialLinkWrapper>
-				<SocialLinkWrapper href={personal_info.contact.github}>
+				<SocialLinkWrapper href={cleanURL(personal_info.contact.github)}>
 					<SocialImageWrapper className="h-8" url={github_img} />
 				</SocialLinkWrapper>
-				<SocialLinkWrapper href={personal_info.contact.youtube}>
+				<SocialLinkWrapper href={cleanURL(personal_info.contact.youtube)}>
 					<SocialImageWrapper className="h-8" url={youtube_img} />
 				</SocialLinkWrapper>
-				<SocialLinkWrapper href={personal_info.contact.cursed_platform}>
-					<a className="absolute -top-4 -right-2 rotate-[15deg]">💩</a>
+				<SocialLinkWrapper href={cleanURL(personal_info.contact.cursed_platform)}>
+					<p className="absolute -top-4 -right-2 rotate-[15deg]">💩</p>
 					<SocialImageWrapper url={linkedin_img} />
 				</SocialLinkWrapper>
-				<SocialLinkWrapper href={personal_info.contact.twitter}>
+				<SocialLinkWrapper href={cleanURL(personal_info.contact.twitter)}>
 					<SocialImageWrapper className="h-7" url={twitter_svg} />
 				</SocialLinkWrapper>
-				<SocialLinkWrapper href={personal_info.contact.roblox}>
+				<SocialLinkWrapper href={cleanURL(personal_info.contact.roblox)}>
 					<SocialImageWrapper className="h-8" url={roblox_img} />
 				</SocialLinkWrapper>
-				<SocialLinkWrapper href={personal_info.contact.discord}>
+				<SocialLinkWrapper href={cleanURL(personal_info.contact.discord)}>
 					<SocialImageWrapper url={discord_svg} />
 				</SocialLinkWrapper>
 			</div>
@@ -66,7 +67,7 @@ function SocialLinkWrapper(props: {
 		<a
 			className={`hover:scale-85  lg:hover:scale-105 font-bold scale-80 lg:scale-100 w-max text-right transition-transform duration-150 flex lg:self-end ${props.className} `}
 			target="_blank"
-			href={props.href}
+			href={cleanURL(props.href)}
 		>
 			{props.children}
 		</a>

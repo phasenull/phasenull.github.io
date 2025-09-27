@@ -6,6 +6,8 @@ import DashboardPanel from "./components/dashboard-panel"
 import { useLocation } from "react-router"
 import AdminLayout from "@pages/admin/admin-layout"
 import { navbar_paths } from "@common/constants"
+import ContactStack from "./components/contact-stack"
+import { cleanURL } from "@common/util"
 export default function Layout(props: { children: any }) {
 	const { pathname } = useLocation()
 	const path_title = Object.values(navbar_paths).find(

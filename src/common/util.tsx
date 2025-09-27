@@ -1,5 +1,7 @@
 // thanks chatgpt for writing this tokenizer 🙏🙏🙏
 
+import { HOST_NAME, HOST_URL } from "./constants"
+
 export function tokenizeProjectContent(paragraph: string) {
 	const tokens = []
 	let currentIndex = 0
@@ -53,4 +55,18 @@ export function tokenizeProjectContent(paragraph: string) {
 		| { type: "ghostlink" | "image" | "video"; text: string; url: string }
 		| { type: "br" }
 	)[]
+}
+
+
+export function cleanURL(url_string?: string) {
+	if (!url_string) return
+
+	const url = new URL(url_string);
+	const host = url.hostname
+	// console.log("cleanURL: host:", host)
+	if (!["phasenull.dev","pbs.twimg.com",`cdn.${HOST_NAME}`,"video.twimg.com",`www.${HOST_NAME}`,`${HOST_NAME}`,"www.youtube.com","www.github.com","github.com","x.com","www.linkedin.com","www.roblox.com","discord.com"].includes(host)) {
+		console.warn("cleanURL: url is not whitelisted, returning null for url:", url_string)
+		return
+	}
+	return url_string
 }

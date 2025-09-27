@@ -1,4 +1,4 @@
-import { tokenizeProjectContent } from "@common/util"
+import { cleanURL, tokenizeProjectContent } from "@common/util"
 import { Link } from "react-router"
 
 export default function ProjectsBodyStackContainer(props: { stack: any }) {
@@ -10,7 +10,7 @@ export default function ProjectsBodyStackContainer(props: { stack: any }) {
 			className="group relative bg-white rounded-xl justify-center flex text-sm text-slate-400"
 		>
 			<img
-				src={stack.image_url}
+				src={cleanURL(stack.image_url)}
 				alt={stack.key}
 				className="object-contain h-8 w-8 border-[1px] border-slate-200 rounded-xl overflow-clip"
 			/>

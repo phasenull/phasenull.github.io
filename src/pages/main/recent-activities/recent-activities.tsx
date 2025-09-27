@@ -12,6 +12,7 @@ import arrow_left from "@assets/arrow_left.svg"
 import { BiLink } from "react-icons/bi"
 import { HOST_URL } from "@common/constants"
 import { FaExternalLinkAlt } from "react-icons/fa"
+import { cleanURL } from "@common/util"
 export default function RecentActivitiesPage() {
 	const { data, isLoading, isFetching } = useGetActivities()
 	const { hash } = useLocation()
@@ -19,7 +20,9 @@ export default function RecentActivitiesPage() {
 	const focus_media_id =
 		focus_index && parseInt(hash.slice(focus_index + "focus=".length))
 	const focus_media = data?.media_list?.find((e) => e.id === focus_media_id)
-	console.log("hash focus found, displaying media:", focus_media_id)
+	if (focus_media) {
+		console.log("hash focus found, displaying media:", focus_media_id)
+	}
 	const other_media = data?.media_list?.filter(
 		(e) => e.activity_id === focus_media?.activity_id
 	)
@@ -104,7 +107,10 @@ export default function RecentActivitiesPage() {
 				</React.Fragment>,
 				document.body
 			)}
-			<div id="activities" className=" justify-center content-center flex flex-wrap lg:gap-x-4 mb-20 gap-y-5 pt-20">
+			<div
+				id="activities"
+				className=" justify-center content-center flex flex-wrap lg:gap-x-4 mb-20 gap-y-5 pt-20"
+			>
 				{data?.activity_list.map((activity, index) => (
 					<ActivityContainer
 						key={[activity.id, activity.platform].join("-")}
@@ -133,11 +139,12 @@ function ActivityContainer(props: {
 				<p>
 					Shared on{" "}
 					<a
-						href={activity.url!}
+						href={cleanURL(activity.url!)}
 						target="_blank"
 						className="text-blue-400"
 					>
-						{activity.platform} <FaExternalLinkAlt className="inline-block mb-1" size={8} />
+						{activity.platform}{" "}
+						<FaExternalLinkAlt className="inline-block mb-1" size={8} />
 					</a>
 				</p>
 				<div className="flex flex-row space-x-4">
@@ -171,9 +178,15 @@ function ActivityContainer(props: {
 					const media_type = media.type
 					switch (media_type) {
 						case "image":
-							return <ActivityImageComponent media={media} />
+							return <ActivityImageComponent key={media.id} media={media} />
 						case "video":
-							return <video src={media.url} controls></video>
+							return (
+								<video
+									key={media.id}
+									src={cleanURL(media.url)}
+									controls
+								></video>
+							)
 							return <a>videos are not supported at the moment.</a>
 					}
 				})}
@@ -195,7 +208,7 @@ function ActivityImageComponent(props: {
 				onClick={(e) => {}}
 				style={{ objectFit: "contain" }}
 				className="w-max rounded-lg h-full max-h-80 hover:scale-105 transition-transform duration-150"
-				src={media.url}
+				src={cleanURL(media.url)}
 			/>
 		</Link>
 	)
