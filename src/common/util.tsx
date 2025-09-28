@@ -46,7 +46,7 @@ export function tokenizeProjectContent(paragraph: string) {
 	}
 
 	// Tokenize remaining text
-	if (lastIndex < paragraph.length) {
+	if (lastIndex < paragraph?.length) {
 		tokenizePlainText(paragraph.slice(lastIndex))
 	}
 

@@ -29,8 +29,7 @@ export function useGetProjects() {
 					Authorization: `Bearer ${access_token}`
 				}
 			}) as { success: boolean; projects: IProject[]}
-		},
-		staleTime: Infinity
+		}
 	})
 }
 
@@ -57,14 +56,18 @@ export function mutateProjectUpdate() {
 	const access_token = useAuthStore((state) => state.access_token)
 	return useMutation({
 		mutationKey: ["updateProject", access_token],
-		mutationFn: async (changes: RowData[]) => {
-			return await makeAPICall(`${API_URL}/admin/projects`, {
+		mutationFn: async (changes: RowData) => {
+			const id = (changes as {id?:number}).id
+			if (!access_token) throw new Error("Missing access token")
+			if (!id) throw new Error("Missing project id")
+			if (isNaN(Number(id))) throw new Error("Invalid project id")
+			return await makeAPICall(`${API_URL}/admin/projects/${changes.id}`, {
 				method: "PATCH",
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${access_token}`
 				},
-				body: JSON.stringify({ rows: changes })
+				body: JSON.stringify({ ...changes })
 			}) as { success: boolean; message: string }
 		}
 	})
@@ -74,14 +77,16 @@ export function mutateProjectDelete() {
 	const access_token = useAuthStore((state) => state.access_token)
 	return useMutation({
 		mutationKey: ["deleteProject", access_token],
-		mutationFn: async (project_ids: number[]) => {
-			return await makeAPICall(`${API_URL}/admin/projects`, {
+		mutationFn: async (project_id: number) => {
+			if (!access_token) throw new Error("Missing access token")
+			if (!project_id) throw new Error("Missing project id")
+			if (isNaN(Number(project_id))) throw new Error("Invalid project id")
+			return await makeAPICall(`${API_URL}/admin/projects/${project_id}`, {
 				method: "DELETE",
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${access_token}`
-				},
-				body: JSON.stringify({ ids: project_ids })
+				}
 			}) as { success: boolean; message: string }
 		}
 	})
@@ -91,15 +96,29 @@ export function mutateProjectCreate() {
 	const access_token = useAuthStore((state) => state.access_token)
 	return useMutation({
 		mutationKey: ["createProject", access_token],
-		mutationFn: async (changes: RowData[]) => {
+		mutationFn: async (projectData?: Partial<IProject>) => {
+			const newProject = {
+				title: "New Project",
+				description: "",
+				project_start_date: new Date().toISOString().split('T')[0],
+				project_end_date: null,
+				thumbnail_url: null,
+				org_id: null,
+				disclaimer: null,
+				url: null,
+				repo_url: null,
+				is_visible: false,
+				...projectData,
+				_isNew: true
+			}
 			return await makeAPICall(`${API_URL}/admin/projects`, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${access_token}`
 				},
-				body: JSON.stringify({ rows: changes })
-			}) as { success: boolean; message: string }
+				body: JSON.stringify({ rows: [newProject] })
+			}) as { success: boolean; message: string; project: IProject }
 		}
 	})
 }

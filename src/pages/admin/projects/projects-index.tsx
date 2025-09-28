@@ -1,14 +1,16 @@
-import React from "react"
+import React, { useState } from "react"
 import { useNavigate } from "react-router"
-import { FaEdit, FaTrash } from "react-icons/fa"
+import { FaEdit, FaTrash, FaPlus } from "react-icons/fa"
 import DataTable from "../components/data-table"
 import type { Column, ActionButton, RowData } from "../components/data-table.types"
-import { useGetProjects, mutateProjectDelete, type IProject } from "@common/admin/project.hooks"
+import { useGetProjects, mutateProjectDelete, mutateProjectCreate, type IProject } from "@common/admin/project.hooks"
 
 export default function ProjectsIndexPage() {
 	const navigate = useNavigate()
-	const { data, isLoading, error, refetch } = useGetProjects()
+	const [isCreating, setIsCreating] = useState(false)
+	const { data, isLoading, error, refetch, isRefetching } = useGetProjects()
 	const deleteProjectMutation = mutateProjectDelete()
+	const createProjectMutation = mutateProjectCreate()
 
 	const handleEdit = (project: RowData) => {
 		navigate(`/admin/projects/edit/${project.id}`)
@@ -21,12 +23,33 @@ export default function ProjectsIndexPage() {
 		
 		if (confirmed) {
 			try {
-				await deleteProjectMutation.mutateAsync([project.id])
+				await deleteProjectMutation.mutateAsync(project.id)
 				refetch() // Refresh the data
 			} catch (error) {
 				console.error("Failed to delete project:", error)
 				alert("Failed to delete project. Please try again.")
 			}
+		}
+	}
+
+	const handleCreateNew = async () => {
+		try {
+			setIsCreating(true)
+			const result = await createProjectMutation.mutateAsync({})
+			
+			// Extract project ID from the response
+			if (result.project?.id) {
+				navigate(`/admin/projects/edit/${result.project.id}`)
+			} else {
+				// Fallback: refresh data and navigate to latest project
+				await refetch()
+				alert("Project created successfully! Please select it from the list to edit.")
+			}
+		} catch (error) {
+			console.error("Failed to create project:", error)
+			alert("Failed to create project. Please try again.")
+		} finally {
+			setIsCreating(false)
 		}
 	}
 
@@ -121,7 +144,7 @@ export default function ProjectsIndexPage() {
 		}
 	]
 
-	if (isLoading) {
+	if (isLoading || isRefetching) {
 		return (
 			<div className="flex items-center justify-center h-64">
 				<div className="text-lg text-gray-600">Loading projects...</div>
@@ -149,6 +172,16 @@ export default function ProjectsIndexPage() {
 
 	return (
 		<div className="p-6">
+			<div className="mb-6 flex justify-between items-center">
+				<button
+					onClick={handleCreateNew}
+					disabled={isCreating}
+					className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+				>
+					<FaPlus />
+					{isCreating ? "Creating..." : "New Project"}
+				</button>
+			</div>
 
 			<DataTable
 				data={data.projects.map((p: IProject) => ({ ...p,description: p.description?.slice(0,100) }))}

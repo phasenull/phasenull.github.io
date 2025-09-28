@@ -48,7 +48,7 @@ export default function ProjectEditForm({ project, stacks, relations, onUpdate }
 				_isModified: true
 			}
 
-			await updateProjectMutation.mutateAsync([projectUpdate])
+			await updateProjectMutation.mutateAsync(projectUpdate)
 			
 			// TODO: Handle stack relations update - this would need a separate API endpoint
 			// or include relations in the project update
