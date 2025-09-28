@@ -1,6 +1,12 @@
 import React, { useState, useCallback, useMemo } from "react"
 import { mutateMediaUpload } from "@common/admin/media.hooks"
-import type { Column, DataTableProps, RowData, ActionButton } from "./data-table.types"
+import type {
+	Column,
+	DataTableProps,
+	RowData,
+	ActionButton
+} from "./data-table.types"
+import { FaPlus } from "react-icons/fa"
 
 export default function DataTable({
 	data: initialData,
@@ -16,7 +22,8 @@ export default function DataTable({
 	enableEdit = true,
 	enableSort = true,
 	enableBulkActions = true,
-	actionButtons = []
+	actionButtons = [],
+	children
 }: DataTableProps) {
 	const [data, setData] = useState<RowData[]>(initialData)
 	const [sortColumn, setSortColumn] = useState<string>("")
@@ -292,7 +299,9 @@ export default function DataTable({
 			{/* Header */}
 			<div className="p-4 border-b border-gray-200">
 				<div className="flex justify-between items-center mb-4">
-					<h2 className="text-xl font-semibold text-gray-800">{title}</h2>
+					<div className="flex items-center gap-4">
+						<h2 className="text-xl font-semibold text-gray-800">{title}</h2>
+					</div>
 					<div className="text-sm text-gray-500">
 						{data.length} rows{" "}
 						{modifiedCount > 0 && `(${modifiedCount} modified)`}
@@ -305,11 +314,13 @@ export default function DataTable({
 						<button
 							onClick={handleAddRow}
 							disabled={isLoading}
-							className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+							className="px-4 flex-row flex items-center gap-2 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
 						>
-							+ Add New Row
+							<FaPlus />
+							Add New Row
 						</button>
 					)}
+					{children && <div className="flex items-center ">{children}</div>}
 
 					{modifiedCount > 0 && (
 						<button
@@ -441,7 +452,9 @@ export default function DataTable({
 												<button
 													key={buttonIndex}
 													onClick={() => button.onClick(row)}
-													disabled={button.disabled ? button.disabled(row) : false}
+													disabled={
+														button.disabled ? button.disabled(row) : false
+													}
 													className={`rounded-md ${
 														button.className ||
 														"bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -460,7 +473,11 @@ export default function DataTable({
 						{data.length === 0 && (
 							<tr>
 								<td
-									colSpan={columns.length + (enableBulkActions ? 1 : 0) + (actionButtons && actionButtons.length > 0 ? 1 : 0)}
+									colSpan={
+										columns.length +
+										(enableBulkActions ? 1 : 0) +
+										(actionButtons && actionButtons.length > 0 ? 1 : 0)
+									}
 									className="p-8 text-center text-gray-500"
 								>
 									No data available

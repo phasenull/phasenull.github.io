@@ -16,8 +16,7 @@ export default function StacksIndex() {
 	if (isError) return <div>Error loading stacks: {error.message}</div>
 	if (isLoading) return <div>Loading...</div>
 	return (
-		<div>
-			<h1>Stacks Index Page</h1>
+		<div className="p-6">
 			{isLoading && <p>Loading...</p>}
 			{isError && <p>Error loading projects</p>}
 			<DataTable

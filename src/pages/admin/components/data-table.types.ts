@@ -50,6 +50,7 @@ export interface DataTableProps {
 	enableSort?: boolean
 	enableBulkActions?: boolean
 	actionButtons?: ActionButton[]
+	children?: React.ReactNode
 }
 
 // Common entity types for your application

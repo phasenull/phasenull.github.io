@@ -2,13 +2,22 @@ import React, { useState } from "react"
 import { useNavigate } from "react-router"
 import { FaEdit, FaTrash, FaPlus } from "react-icons/fa"
 import DataTable from "../components/data-table"
-import type { Column, ActionButton, RowData } from "../components/data-table.types"
-import { useGetProjects, mutateProjectDelete, mutateProjectCreate, type IProject } from "@common/admin/project.hooks"
+import type {
+	Column,
+	ActionButton,
+	RowData
+} from "../components/data-table.types"
+import {
+	useGetProjects,
+	mutateProjectDelete,
+	mutateProjectCreate,
+	type IProject
+} from "@common/admin/project.hooks"
 
 export default function ProjectsIndexPage() {
 	const navigate = useNavigate()
 	const [isCreating, setIsCreating] = useState(false)
-	const { data, isLoading, error, refetch, isRefetching } = useGetProjects()
+	const { data, isLoading, error, refetch } = useGetProjects()
 	const deleteProjectMutation = mutateProjectDelete()
 	const createProjectMutation = mutateProjectCreate()
 
@@ -20,7 +29,7 @@ export default function ProjectsIndexPage() {
 		const confirmed = window.confirm(
 			`Are you sure you want to delete the project "${project.title}"? This action cannot be undone.`
 		)
-		
+
 		if (confirmed) {
 			try {
 				await deleteProjectMutation.mutateAsync(project.id)
@@ -36,14 +45,16 @@ export default function ProjectsIndexPage() {
 		try {
 			setIsCreating(true)
 			const result = await createProjectMutation.mutateAsync({})
-			
+
 			// Extract project ID from the response
 			if (result.project?.id) {
 				navigate(`/admin/projects/edit/${result.project.id}`)
 			} else {
 				// Fallback: refresh data and navigate to latest project
 				await refetch()
-				alert("Project created successfully! Please select it from the list to edit.")
+				alert(
+					"Project created successfully! Please select it from the list to edit."
+				)
 			}
 		} catch (error) {
 			console.error("Failed to create project:", error)
@@ -76,7 +87,7 @@ export default function ProjectsIndexPage() {
 			label: "Description",
 			type: "text",
 			sortable: false,
-			editable: false,
+			editable: false
 			// width: "100px",
 		},
 		{
@@ -133,18 +144,20 @@ export default function ProjectsIndexPage() {
 		{
 			label: "",
 			onClick: handleEdit,
-			className: "bg-orange-400 text-white hover:bg-orange-700 px-3 h-8 text-center justify-center rounded-md text-sm",
+			className:
+				"bg-orange-400 text-white hover:bg-orange-700 px-3 h-8 text-center justify-center rounded-md text-sm",
 			icon: <FaEdit />
 		},
 		{
 			label: "",
 			onClick: handleDelete,
-			className: "bg-red-600 text-white hover:bg-red-700 px-3 h-8 text-center justify-center rounded-md text-sm",
+			className:
+				"bg-red-600 text-white hover:bg-red-700 px-3 h-8 text-center justify-center rounded-md text-sm",
 			icon: <FaTrash />
 		}
 	]
 
-	if (isLoading || isRefetching) {
+	if (isLoading) {
 		return (
 			<div className="flex items-center justify-center h-64">
 				<div className="text-lg text-gray-600">Loading projects...</div>
@@ -172,19 +185,11 @@ export default function ProjectsIndexPage() {
 
 	return (
 		<div className="p-6">
-			<div className="mb-6 flex justify-between items-center">
-				<button
-					onClick={handleCreateNew}
-					disabled={isCreating}
-					className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
-				>
-					<FaPlus />
-					{isCreating ? "Creating..." : "New Project"}
-				</button>
-			</div>
-
 			<DataTable
-				data={data.projects.map((p: IProject) => ({ ...p,description: p.description?.slice(0,100) }))}
+				data={data.projects.map((p: IProject) => ({
+					...p,
+					description: p.description?.slice(0, 100)
+				}))}
 				columns={columns}
 				actionButtons={actionButtons}
 				title="Portfolio Projects"
@@ -194,7 +199,16 @@ export default function ProjectsIndexPage() {
 				enableDelete={false}
 				enableBulkActions={false}
 				maxHeight="700px"
-			/>
+			>
+				<button
+					onClick={handleCreateNew}
+					disabled={isCreating}
+					className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+				>
+					<FaPlus />
+					{isCreating ? "Creating..." : "New Project"}
+				</button>
+			</DataTable>
 		</div>
 	)
 }
