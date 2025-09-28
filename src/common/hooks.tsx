@@ -35,6 +35,7 @@ export function useGetAllProjects() {
 		queryKey: ["get_all_projects"],
 		staleTime: Infinity,
 		queryFn: async () => {
+			console.log("Fetching all projects and stacks from API")
 			const data = await makeAPICall(`${API_URL}/projects/all`)
 			return data as {
 				success: boolean

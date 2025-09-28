@@ -4,6 +4,7 @@ import type { Column, DataTableProps, RowData } from "./data-table.types"
 
 export default function DataTable({
 	data: initialData,
+	height,
 	columns,
 	onSave,
 	onDelete,
@@ -92,7 +93,9 @@ export default function DataTable({
 		if (!enableAdd) return
 
 		// Generate a unique temporary ID for the new row
-		const tempId = `temp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+		const tempId = `temp_${Date.now()}_${Math.random()
+			.toString(36)
+			.substr(2, 9)}`
 		console.log("Adding new row with temp ID:", tempId)
 		const newRow: RowData = {
 			[primaryKey]: tempId,
@@ -105,7 +108,7 @@ export default function DataTable({
 		columns.forEach((column) => {
 			// Skip the primary key column to avoid overwriting the temp ID
 			if (column.key === primaryKey) return
-			
+
 			switch (column.type) {
 				case "boolean":
 					newRow[column.key] = false
@@ -128,6 +131,15 @@ export default function DataTable({
 	const handleDeleteSelected = useCallback(async () => {
 		if (!enableDelete || selectedRows.length === 0) return
 
+		// Show confirmation dialog
+		const confirmed = window.confirm(
+			`Are you sure you want to delete ${selectedRows.length} selected row${
+				selectedRows.length === 1 ? "" : "s"
+			}? This action cannot be undone.`
+		)
+
+		if (!confirmed) return
+
 		setIsLoading(true)
 		try {
 			if (onDelete) {
@@ -138,6 +150,7 @@ export default function DataTable({
 			setSelectAll(false)
 		} catch (error) {
 			console.error("Failed to delete rows:", error)
+			alert("Failed to delete rows. Please try again.")
 		} finally {
 			setIsLoading(false)
 		}
@@ -231,8 +244,8 @@ export default function DataTable({
 			if (!enableBulkActions) return
 
 			setData((prevData) => {
-				return prevData.map(row => 
-					row[primaryKey] === rowPrimaryKey 
+				return prevData.map((row) =>
+					row[primaryKey] === rowPrimaryKey
 						? { ...row, _isSelected: selected }
 						: row
 				)
@@ -274,7 +287,7 @@ export default function DataTable({
 	).length
 
 	return (
-		<div className="w-full bg-white rounded-lg shadow-lg">
+		<div className={`w-full bg-white rounded-lg shadow-lg `}>
 			{/* Header */}
 			<div className="p-4 border-b border-gray-200">
 				<div className="flex justify-between items-center mb-4">
@@ -332,7 +345,10 @@ export default function DataTable({
 			</div>
 
 			{/* Table Container */}
-			<div className="overflow-auto" style={{ maxHeight }}>
+			<div
+				className="overflow-auto"
+				style={{ maxHeight, height: height || "auto" }}
+			>
 				<table className="w-full">
 					<thead className="bg-gray-50 sticky top-0">
 						<tr>
@@ -476,7 +492,9 @@ function EditableCell({
 
 	if (disabled || !column.editable) {
 		return (
-			<span className="text-gray-600">{formatDisplayValue(value, column, primaryKey, row)}</span>
+			<span className="text-gray-600">
+				{formatDisplayValue(value, column, primaryKey, row)}
+			</span>
 		)
 	}
 
@@ -514,16 +532,25 @@ function EditableCell({
 }
 
 // Helper Functions
-function formatDisplayValue(value: any, column: Column, primaryKey: string, row: RowData): React.ReactNode {
+function formatDisplayValue(
+	value: any,
+	column: Column,
+	primaryKey: string,
+	row: RowData
+): React.ReactNode {
 	// Special handling for primary key columns with temp IDs
-	if (column.key === primaryKey && typeof value === 'string' && value.startsWith('temp_')) {
+	if (
+		column.key === primaryKey &&
+		typeof value === "string" &&
+		value.startsWith("temp_")
+	) {
 		return (
 			<span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded">
 				NEW
 			</span>
 		)
 	}
-	
+
 	if (value == null || value === "") return "-"
 
 	switch (column.type) {
@@ -536,13 +563,13 @@ function formatDisplayValue(value: any, column: Column, primaryKey: string, row:
 				<div className="flex items-center gap-2">
 					<span className="text-blue-600 text-xs">📁</span>
 					{value ? (
-						<a 
-							href={value} 
-							target="_blank" 
+						<a
+							href={value}
+							target="_blank"
 							rel="noopener noreferrer"
 							className="text-blue-600 hover:text-blue-800 text-xs max-w-[100px] truncate underline"
 						>
-							{new URL(value).pathname.split('/').pop() || 'file'}
+							{new URL(value).pathname.split("/").pop() || "file"}
 						</a>
 					) : (
 						<span className="text-gray-500 text-xs">No file</span>
@@ -552,12 +579,12 @@ function formatDisplayValue(value: any, column: Column, primaryKey: string, row:
 		case "image":
 			return (
 				<div className="flex items-center gap-2">
-					<img 
-						src={value} 
-						alt="preview" 
+					<img
+						src={value}
+						alt="preview"
 						className="h-8 w-8 object-cover rounded border"
 						onError={(e) => {
-							e.currentTarget.style.display = 'none';
+							e.currentTarget.style.display = "none"
 						}}
 					/>
 					<span className="text-xs text-gray-500 max-w-[100px] truncate">
@@ -572,49 +599,50 @@ function formatDisplayValue(value: any, column: Column, primaryKey: string, row:
 
 // File Upload Editor Component
 interface FileUploadEditorProps {
-	value: string;
-	setValue: (value: string) => void;
+	value: string
+	setValue: (value: string) => void
 }
 
 function FileUploadEditor({ value, setValue }: FileUploadEditorProps) {
-	const [isUploading, setIsUploading] = useState(false);
-	const { mutateAsync } = mutateMediaUpload();
-	const handleFileChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-		const file = e.target.files?.[0];
-		if (!file) return;
+	const [isUploading, setIsUploading] = useState(false)
+	const { mutateAsync } = mutateMediaUpload()
+	const handleFileChange = useCallback(
+		async (e: React.ChangeEvent<HTMLInputElement>) => {
+			const file = e.target.files?.[0]
+			if (!file) return
 
-		setIsUploading(true);
-		try {
+			setIsUploading(true)
+			try {
+				const new_formData = new FormData()
+				new_formData.append("file", file)
 
-			const new_formData = new FormData();
-			new_formData.append('file', file);
-			
-			
-			// Create mutation with the specific FormData
-			const result = await mutateAsync(new_formData);
-			setValue(result.url);
-		} catch (error) {
-			console.error('Failed to upload file:', error);
-			alert('Failed to upload file. Please try again.');
-		} finally {
-			setIsUploading(false);
-		}
-	}, [setValue]);
+				// Create mutation with the specific FormData
+				const result = await mutateAsync(new_formData)
+				setValue(result.url)
+			} catch (error) {
+				console.error("Failed to upload file:", error)
+				alert("Failed to upload file. Please try again.")
+			} finally {
+				setIsUploading(false)
+			}
+		},
+		[setValue]
+	)
 
-	const baseClasses = "border border-gray-300 rounded px-2 py-1 text-sm min-w-0";
+	const baseClasses = "border border-gray-300 rounded px-2 py-1 text-sm min-w-0"
 
 	return (
 		<div className="flex flex-col gap-2 min-w-[200px]">
 			{value && (
 				<div className="flex items-center gap-2 p-2 bg-gray-50 rounded">
 					<span className="text-blue-600 text-xs">📁</span>
-					<a 
-						href={value} 
-						target="_blank" 
+					<a
+						href={value}
+						target="_blank"
 						rel="noopener noreferrer"
 						className="text-blue-600 hover:text-blue-800 text-xs truncate underline"
 					>
-						{new URL(value).pathname.split('/').pop() || 'current file'}
+						{new URL(value).pathname.split("/").pop() || "current file"}
 					</a>
 				</div>
 			)}
@@ -626,7 +654,9 @@ function FileUploadEditor({ value, setValue }: FileUploadEditorProps) {
 					className={`${baseClasses} file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100`}
 				/>
 				{isUploading && (
-					<span className="text-xs text-gray-500 self-center">Uploading...</span>
+					<span className="text-xs text-gray-500 self-center">
+						Uploading...
+					</span>
 				)}
 			</div>
 			<input
@@ -637,49 +667,56 @@ function FileUploadEditor({ value, setValue }: FileUploadEditorProps) {
 				className={`${baseClasses} text-xs`}
 			/>
 		</div>
-	);
+	)
 }
 
 // Image Upload Editor Component
 interface ImageUploadEditorProps {
-	value: string;
-	setValue: (value: string) => void;
-	onKeyPress: (e: React.KeyboardEvent) => void;
+	value: string
+	setValue: (value: string) => void
+	onKeyPress: (e: React.KeyboardEvent) => void
 }
 
-function ImageUploadEditor({ value, setValue, onKeyPress }: ImageUploadEditorProps) {
-	const [isUploading, setIsUploading] = useState(false);
-	const baseClasses = "border border-gray-300 rounded px-2 py-1 text-sm min-w-0";
-	const {mutateAsync} = mutateMediaUpload();
-	const handleFileChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-		const file = e.target.files?.[0];
-		if (!file) return;
-		
-		setIsUploading(true);
-		try {
-			const formData = new FormData();
-			formData.append('file', file);
-			
-			// Create mutation with the specific FormData
-			const result = await mutateAsync(formData);
-			setValue(result.url);
-		} catch (error) {
-			console.error('Failed to upload image:', error);
-			alert('Failed to upload image. Please try again.');
-		} finally {
-			setIsUploading(false);
-		}
-	}, [setValue]);
+function ImageUploadEditor({
+	value,
+	setValue,
+	onKeyPress
+}: ImageUploadEditorProps) {
+	const [isUploading, setIsUploading] = useState(false)
+	const baseClasses = "border border-gray-300 rounded px-2 py-1 text-sm min-w-0"
+	const { mutateAsync } = mutateMediaUpload()
+	const handleFileChange = useCallback(
+		async (e: React.ChangeEvent<HTMLInputElement>) => {
+			const file = e.target.files?.[0]
+			if (!file) return
+
+			setIsUploading(true)
+			try {
+				const formData = new FormData()
+				formData.append("file", file)
+
+				// Create mutation with the specific FormData
+				const result = await mutateAsync(formData)
+				setValue(result.url)
+			} catch (error) {
+				console.error("Failed to upload image:", error)
+				alert("Failed to upload image. Please try again.")
+			} finally {
+				setIsUploading(false)
+			}
+		},
+		[setValue]
+	)
 
 	return (
 		<div className="flex flex-col gap-2">
 			{value && (
-				<img 
-					src={value} 
-					alt="preview" 
+				<img
+					src={value}
+					alt="preview"
 					className="h-20 w-20 object-cover rounded border"
 					onError={(e) => {
-						e.currentTarget.style.display = 'none';
+						e.currentTarget.style.display = "none"
 					}}
 				/>
 			)}
@@ -692,7 +729,9 @@ function ImageUploadEditor({ value, setValue, onKeyPress }: ImageUploadEditorPro
 					className={`${baseClasses} file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:bg-green-50 file:text-green-700 hover:file:bg-green-100`}
 				/>
 				{isUploading && (
-					<span className="text-xs text-gray-500 self-center">Uploading...</span>
+					<span className="text-xs text-gray-500 self-center">
+						Uploading...
+					</span>
 				)}
 			</div>
 			<input
@@ -705,7 +744,7 @@ function ImageUploadEditor({ value, setValue, onKeyPress }: ImageUploadEditorPro
 				autoFocus
 			/>
 		</div>
-	);
+	)
 }
 
 function renderEditor(
@@ -770,7 +809,13 @@ function renderEditor(
 			return <FileUploadEditor value={value} setValue={setValue} />
 
 		case "image":
-			return <ImageUploadEditor value={value} setValue={setValue} onKeyPress={onKeyPress} />
+			return (
+				<ImageUploadEditor
+					value={value}
+					setValue={setValue}
+					onKeyPress={onKeyPress}
+				/>
+			)
 
 		case "text":
 			return (
