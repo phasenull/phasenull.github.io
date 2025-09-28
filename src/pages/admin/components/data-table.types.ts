@@ -3,7 +3,7 @@
 export interface Column {
   key: string;
   label: string;
-  type: 'text' | 'number' | 'email' | 'url' | 'date' | 'select' | 'boolean' | 'image';
+  type: 'text' | 'number' | 'email' | 'url' | 'date' | 'select' | 'boolean' | 'image' | 'file';
   required?: boolean;
   editable?: boolean;
   sortable?: boolean;

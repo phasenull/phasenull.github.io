@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useMemo } from "react"
+import { mutateMediaUpload } from "@common/admin/media.hooks"
 import type { Column, DataTableProps, RowData } from "./data-table.types"
 
 export default function DataTable({
@@ -506,6 +507,24 @@ function formatDisplayValue(value: any, column: Column): React.ReactNode {
 			return value ? "Yes" : "No"
 		case "date":
 			return new Date(value).toLocaleDateString()
+		case "file":
+			return (
+				<div className="flex items-center gap-2">
+					<span className="text-blue-600 text-xs">📁</span>
+					{value ? (
+						<a 
+							href={value} 
+							target="_blank" 
+							rel="noopener noreferrer"
+							className="text-blue-600 hover:text-blue-800 text-xs max-w-[100px] truncate underline"
+						>
+							{new URL(value).pathname.split('/').pop() || 'file'}
+						</a>
+					) : (
+						<span className="text-gray-500 text-xs">No file</span>
+					)}
+				</div>
+			)
 		case "image":
 			return (
 				<div className="flex items-center gap-2">
@@ -525,6 +544,75 @@ function formatDisplayValue(value: any, column: Column): React.ReactNode {
 		default:
 			return String(value)
 	}
+}
+
+// File Upload Editor Component
+interface FileUploadEditorProps {
+	value: string;
+	setValue: (value: string) => void;
+}
+
+function FileUploadEditor({ value, setValue }: FileUploadEditorProps) {
+	const [isUploading, setIsUploading] = useState(false);
+
+	const handleFileChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		if (!file) return;
+
+		setIsUploading(true);
+		try {
+			const formData = new FormData();
+			formData.append('file', file);
+			
+			// Create the mutation dynamically with the formData
+			const uploadMutation = mutateMediaUpload(formData);
+			const result = await uploadMutation.mutateAsync();
+			setValue(result.url);
+		} catch (error) {
+			console.error('Failed to upload file:', error);
+			alert('Failed to upload file. Please try again.');
+		} finally {
+			setIsUploading(false);
+		}
+	}, [setValue]);
+
+	const baseClasses = "border border-gray-300 rounded px-2 py-1 text-sm min-w-0";
+
+	return (
+		<div className="flex flex-col gap-2 min-w-[200px]">
+			{value && (
+				<div className="flex items-center gap-2 p-2 bg-gray-50 rounded">
+					<span className="text-blue-600 text-xs">📁</span>
+					<a 
+						href={value} 
+						target="_blank" 
+						rel="noopener noreferrer"
+						className="text-blue-600 hover:text-blue-800 text-xs truncate underline"
+					>
+						{new URL(value).pathname.split('/').pop() || 'current file'}
+					</a>
+				</div>
+			)}
+			<div className="flex gap-2">
+				<input
+					type="file"
+					onChange={handleFileChange}
+					disabled={isUploading}
+					className={`${baseClasses} file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100`}
+				/>
+				{isUploading && (
+					<span className="text-xs text-gray-500 self-center">Uploading...</span>
+				)}
+			</div>
+			<input
+				type="url"
+				value={value || ""}
+				onChange={(e) => setValue(e.target.value)}
+				placeholder="Or enter URL directly"
+				className={`${baseClasses} text-xs`}
+			/>
+		</div>
+	);
 }
 
 function renderEditor(
@@ -585,6 +673,9 @@ function renderEditor(
 					autoFocus
 				/>
 			)
+		case "file":
+			return <FileUploadEditor value={value} setValue={setValue} />
+
 		case "image":
 			return (
 				<div className="flex flex-col gap-2">
