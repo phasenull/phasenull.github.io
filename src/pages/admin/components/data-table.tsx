@@ -93,7 +93,7 @@ export default function DataTable({
 
 		// Generate a unique temporary ID for the new row
 		const tempId = `temp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
-
+		console.log("Adding new row with temp ID:", tempId)
 		const newRow: RowData = {
 			[primaryKey]: tempId,
 			_isNew: true,
@@ -103,6 +103,9 @@ export default function DataTable({
 
 		// Initialize with default values
 		columns.forEach((column) => {
+			// Skip the primary key column to avoid overwriting the temp ID
+			if (column.key === primaryKey) return
+			
 			switch (column.type) {
 				case "boolean":
 					newRow[column.key] = false
@@ -404,6 +407,8 @@ export default function DataTable({
 												handleCellEdit(rowIndex, column.key, value)
 											}
 											disabled={!enableEdit || !column.editable}
+											primaryKey={primaryKey}
+											row={row}
 										/>
 									</td>
 								))}
@@ -432,13 +437,17 @@ interface EditableCellProps {
 	column: Column
 	onSave: (value: any) => void
 	disabled?: boolean
+	primaryKey: string
+	row: RowData
 }
 
 function EditableCell({
 	value,
 	column,
 	onSave,
-	disabled = false
+	disabled = false,
+	primaryKey,
+	row
 }: EditableCellProps) {
 	const [isEditing, setIsEditing] = useState(false)
 	const [editValue, setEditValue] = useState(value)
@@ -467,7 +476,7 @@ function EditableCell({
 
 	if (disabled || !column.editable) {
 		return (
-			<span className="text-gray-600">{formatDisplayValue(value, column)}</span>
+			<span className="text-gray-600">{formatDisplayValue(value, column, primaryKey, row)}</span>
 		)
 	}
 
@@ -478,7 +487,7 @@ function EditableCell({
 				className="cursor-pointer hover:bg-gray-100 rounded px-2 py-1 min-h-[1.5rem]"
 				title="Click to edit"
 			>
-				{formatDisplayValue(value, column)}
+				{formatDisplayValue(value, column, primaryKey, row)}
 			</div>
 		)
 	}
@@ -505,7 +514,16 @@ function EditableCell({
 }
 
 // Helper Functions
-function formatDisplayValue(value: any, column: Column): React.ReactNode {
+function formatDisplayValue(value: any, column: Column, primaryKey: string, row: RowData): React.ReactNode {
+	// Special handling for primary key columns with temp IDs
+	if (column.key === primaryKey && typeof value === 'string' && value.startsWith('temp_')) {
+		return (
+			<span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded">
+				NEW
+			</span>
+		)
+	}
+	
 	if (value == null || value === "") return "-"
 
 	switch (column.type) {
