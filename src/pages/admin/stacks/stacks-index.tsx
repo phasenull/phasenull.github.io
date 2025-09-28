@@ -17,9 +17,23 @@ export default function StacksIndex() {
 					key,
 					label: key,
 					type: getColumnTypeFromKey(key),
-					editable: true,
-					sortable: true
+					editable: key !== "id" && key !== "created_at" && key !== "updated_at",
+					sortable: true,
 				}))}
+				enableAdd={true}
+				enableEdit={true}
+				enableSort={true}
+				enableDelete={true}
+				enableBulkActions={true}
+				onDelete={async (rows) => {
+					console.log("Delete rows:", rows)
+				}}
+				onSave={async (rows) => {
+					console.log("New rows:", rows.filter(r => r._isNew))
+					console.log("Modified rows:", rows.filter(r => r._isModified))
+					// Call your API to save the updated rows
+				}}
+				title="Edit Stacks"
 			/>
 		</div>
 	)

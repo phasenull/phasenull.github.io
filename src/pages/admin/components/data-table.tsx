@@ -91,7 +91,11 @@ export default function DataTable({
 	const handleAddRow = useCallback(() => {
 		if (!enableAdd) return
 
+		// Generate a unique temporary ID for the new row
+		const tempId = `temp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+
 		const newRow: RowData = {
+			[primaryKey]: tempId,
 			_isNew: true,
 			_isModified: false,
 			_isSelected: false
@@ -114,8 +118,8 @@ export default function DataTable({
 			}
 		})
 
-		setData((prevData) => [...prevData, newRow])
-	}, [columns, enableAdd])
+		setData((prevData) => [newRow, ...prevData])
+	}, [columns, enableAdd, primaryKey])
 
 	// Delete selected rows
 	const handleDeleteSelected = useCallback(async () => {
@@ -220,16 +224,18 @@ export default function DataTable({
 
 	// Handle row selection
 	const handleRowSelect = useCallback(
-		(rowIndex: number, selected: boolean) => {
+		(rowPrimaryKey: any, selected: boolean) => {
 			if (!enableBulkActions) return
 
 			setData((prevData) => {
-				const newData = [...prevData]
-				newData[rowIndex] = { ...newData[rowIndex], _isSelected: selected }
-				return newData
+				return prevData.map(row => 
+					row[primaryKey] === rowPrimaryKey 
+						? { ...row, _isSelected: selected }
+						: row
+				)
 			})
 		},
-		[enableBulkActions]
+		[enableBulkActions, primaryKey]
 	)
 
 	// Handle select all
@@ -355,8 +361,8 @@ export default function DataTable({
 											<span className="text-xs text-gray-400">
 												{sortColumn === column.key
 													? sortDirection === "asc"
-														? "↑"
-														: "↓"
+														? "↓"
+														: "↑"
 													: "↕"}
 											</span>
 										)}
@@ -383,7 +389,7 @@ export default function DataTable({
 											type="checkbox"
 											checked={row._isSelected || false}
 											onChange={(e) =>
-												handleRowSelect(rowIndex, e.target.checked)
+												handleRowSelect(row[primaryKey], e.target.checked)
 											}
 											className="rounded"
 										/>
