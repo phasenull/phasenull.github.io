@@ -1,4 +1,4 @@
-import { useGetUsage } from "@common/admin.hooks";
+import { useGetUsage } from "@common/admin/admin.hooks";
 
 export default function StatusPage() {
    const { data, isLoading, error } = useGetUsage()

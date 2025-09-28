@@ -1,7 +1,7 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
-import { useAuthStore } from "./oauth.store"
-import { API_URL, ENV } from "./constants"
-import { makeAPICall } from "./hooks"
+import { useAuthStore } from "../oauth.store"
+import { API_URL, ENV } from "../constants"
+import { makeAPICall } from "../hooks"
 
 export function useGetSelf() {
 	const access_token = useAuthStore((state) => state.access_token)

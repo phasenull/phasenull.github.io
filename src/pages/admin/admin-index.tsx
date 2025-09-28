@@ -1,4 +1,4 @@
-import { useGetSelf } from "@common/admin.hooks"
+import { useGetSelf } from "@common/admin/admin.hooks"
 import AdminProfile from "./components/admin-profile"
 
 export default function AdminPage() {

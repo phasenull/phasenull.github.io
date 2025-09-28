@@ -1,4 +1,4 @@
-import { useGetSessions } from "@common/admin.hooks"
+import { useGetSessions } from "@common/admin/admin.hooks"
 import ProfileBanner from "./components/profile-banner"
 
 export default function ListSessionsPage() {

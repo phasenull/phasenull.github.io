@@ -1,4 +1,4 @@
-import { useGetAuthorizeLink } from "@common/admin.hooks"
+import { useGetAuthorizeLink } from "@common/admin/admin.hooks"
 
 export default function AuthorizePage() {
    const {data,isLoading,error} = useGetAuthorizeLink()

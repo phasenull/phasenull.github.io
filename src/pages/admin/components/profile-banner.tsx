@@ -1,4 +1,4 @@
-import { useGetSelf } from "@common/admin.hooks"
+import { useGetSelf } from "@common/admin/admin.hooks"
 import { useAuthStore } from "@common/oauth.store"
 import { GoSignOut } from "react-icons/go"
 

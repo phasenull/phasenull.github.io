@@ -5,8 +5,9 @@ import AdminProfile from "./admin-profile";
 const paths = {
 	"/admin": "Dash",
 	"/admin/status":"Status",
-	"/admin/manage-activities":"Activities",
-	"/admin/manage-projects":"Projects",
+	"/admin/stacks":"Stacks",
+	// "/admin/manage-activities":"Activities",
+	// "/admin/manage-projects":"Projects",
 	"/admin/list-sessions": "List Sessions",
 	// "/recent-activities": "Recent Activities",
 }

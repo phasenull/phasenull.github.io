@@ -12,6 +12,7 @@ import OAuthCallback from "@pages/admin/oauth/callback"
 import ListSessionsPage from "@pages/admin/list-sessions"
 import AuthorizePage from "@pages/admin/oauth/authorize"
 import StatusPage from "@pages/admin/status"
+import StacksIndex from "@pages/admin/stacks/stacks-index"
 const client = new QueryClient()
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
@@ -35,9 +36,12 @@ createRoot(document.getElementById("root")!).render(
 								path="activity-manager"
 								element={<div>Activity Manager</div>}
 							/>
+							<Route path="stacks">
+								<Route index element={<StacksIndex />} />
+							</Route>
 							<Route path="list-sessions" element={<ListSessionsPage />} />
 							<Route path="status" element={<StatusPage />} />
-							<Route path="oauth/*">
+							<Route path="oauth">
 								<Route index element={<div>OAuth</div>} />
 								<Route path="callback" element={<OAuthCallback />} />
 								<Route path="authorize" element={<AuthorizePage />} />

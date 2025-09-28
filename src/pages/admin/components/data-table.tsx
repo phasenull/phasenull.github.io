@@ -554,19 +554,20 @@ interface FileUploadEditorProps {
 
 function FileUploadEditor({ value, setValue }: FileUploadEditorProps) {
 	const [isUploading, setIsUploading] = useState(false);
-
+	const { mutateAsync } = mutateMediaUpload();
 	const handleFileChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const file = e.target.files?.[0];
 		if (!file) return;
 
 		setIsUploading(true);
 		try {
-			const formData = new FormData();
-			formData.append('file', file);
+
+			const new_formData = new FormData();
+			new_formData.append('file', file);
 			
-			// Create the mutation dynamically with the formData
-			const uploadMutation = mutateMediaUpload(formData);
-			const result = await uploadMutation.mutateAsync();
+			
+			// Create mutation with the specific FormData
+			const result = await mutateAsync(new_formData);
 			setValue(result.url);
 		} catch (error) {
 			console.error('Failed to upload file:', error);
@@ -610,6 +611,74 @@ function FileUploadEditor({ value, setValue }: FileUploadEditorProps) {
 				onChange={(e) => setValue(e.target.value)}
 				placeholder="Or enter URL directly"
 				className={`${baseClasses} text-xs`}
+			/>
+		</div>
+	);
+}
+
+// Image Upload Editor Component
+interface ImageUploadEditorProps {
+	value: string;
+	setValue: (value: string) => void;
+	onKeyPress: (e: React.KeyboardEvent) => void;
+}
+
+function ImageUploadEditor({ value, setValue, onKeyPress }: ImageUploadEditorProps) {
+	const [isUploading, setIsUploading] = useState(false);
+	const baseClasses = "border border-gray-300 rounded px-2 py-1 text-sm min-w-0";
+	const {mutateAsync} = mutateMediaUpload();
+	const handleFileChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		if (!file) return;
+		
+		setIsUploading(true);
+		try {
+			const formData = new FormData();
+			formData.append('file', file);
+			
+			// Create mutation with the specific FormData
+			const result = await mutateAsync(formData);
+			setValue(result.url);
+		} catch (error) {
+			console.error('Failed to upload image:', error);
+			alert('Failed to upload image. Please try again.');
+		} finally {
+			setIsUploading(false);
+		}
+	}, [setValue]);
+
+	return (
+		<div className="flex flex-col gap-2">
+			{value && (
+				<img 
+					src={value} 
+					alt="preview" 
+					className="h-20 w-20 object-cover rounded border"
+					onError={(e) => {
+						e.currentTarget.style.display = 'none';
+					}}
+				/>
+			)}
+			<div className="flex gap-2">
+				<input
+					type="file"
+					accept="image/*"
+					onChange={handleFileChange}
+					disabled={isUploading}
+					className={`${baseClasses} file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:bg-green-50 file:text-green-700 hover:file:bg-green-100`}
+				/>
+				{isUploading && (
+					<span className="text-xs text-gray-500 self-center">Uploading...</span>
+				)}
+			</div>
+			<input
+				type="url"
+				value={value || ""}
+				onChange={(e) => setValue(e.target.value)}
+				onKeyDown={onKeyPress}
+				className={baseClasses}
+				placeholder="Or enter image URL"
+				autoFocus
 			/>
 		</div>
 	);
@@ -677,52 +746,7 @@ function renderEditor(
 			return <FileUploadEditor value={value} setValue={setValue} />
 
 		case "image":
-			return (
-				<div className="flex flex-col gap-2">
-					{value && (
-						<img 
-							src={value} 
-							alt="preview" 
-							className="h-20 w-20 object-cover rounded border"
-							onError={(e) => {
-								e.currentTarget.style.display = 'none';
-							}}
-						/>
-					)}
-					<div className="flex gap-2">
-						<input
-							type="file"
-							accept="image/*"
-							onChange={async (e) => {
-								const file = e.target.files?.[0];
-								if (!file) return;
-								
-								try {
-									const formData = new FormData();
-									formData.append('file', file);
-									
-									const uploadMutation = mutateMediaUpload(formData);
-									const result = await uploadMutation.mutateAsync();
-									setValue(result.url);
-								} catch (error) {
-									console.error('Failed to upload image:', error);
-									alert('Failed to upload image. Please try again.');
-								}
-							}}
-							className={`${baseClasses} file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:bg-green-50 file:text-green-700 hover:file:bg-green-100`}
-						/>
-					</div>
-					<input
-						type="url"
-						value={value || ""}
-						onChange={(e) => setValue(e.target.value)}
-						onKeyDown={onKeyPress}
-						className={baseClasses}
-						placeholder="Or enter image URL"
-						autoFocus
-					/>
-				</div>
-			)
+			return <ImageUploadEditor value={value} setValue={setValue} onKeyPress={onKeyPress} />
 
 		case "text":
 			return (
