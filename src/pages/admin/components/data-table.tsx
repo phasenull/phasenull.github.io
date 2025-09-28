@@ -689,13 +689,36 @@ function renderEditor(
 							}}
 						/>
 					)}
+					<div className="flex gap-2">
+						<input
+							type="file"
+							accept="image/*"
+							onChange={async (e) => {
+								const file = e.target.files?.[0];
+								if (!file) return;
+								
+								try {
+									const formData = new FormData();
+									formData.append('file', file);
+									
+									const uploadMutation = mutateMediaUpload(formData);
+									const result = await uploadMutation.mutateAsync();
+									setValue(result.url);
+								} catch (error) {
+									console.error('Failed to upload image:', error);
+									alert('Failed to upload image. Please try again.');
+								}
+							}}
+							className={`${baseClasses} file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:bg-green-50 file:text-green-700 hover:file:bg-green-100`}
+						/>
+					</div>
 					<input
 						type="url"
 						value={value || ""}
 						onChange={(e) => setValue(e.target.value)}
 						onKeyDown={onKeyPress}
 						className={baseClasses}
-						placeholder="Enter image URL"
+						placeholder="Or enter image URL"
 						autoFocus
 					/>
 				</div>
