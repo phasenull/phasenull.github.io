@@ -3,7 +3,16 @@ import { makeAPICall } from "@common/hooks"
 import { useAuthStore } from "@common/oauth.store"
 import type { RowData, Stack } from "@pages/admin/components/data-table.types"
 import { useMutation, useQuery } from "@tanstack/react-query"
-
+export interface IStack {
+	id: number,
+	key: string,
+	description: string|null,
+	created_at: string,
+	url: string|null,
+	type: 
+		"library" | "framework" | "runtime" | "language" | "other" | "tool" | string & {},
+	image_url: string|null
+}
 export function useGetStack(stack_id: string) {
 	const access_token = useAuthStore((state) => state.access_token)
 	return useQuery({
