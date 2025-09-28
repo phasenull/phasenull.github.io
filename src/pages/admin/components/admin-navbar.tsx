@@ -6,8 +6,8 @@ const paths = {
 	"/admin": "Dash",
 	"/admin/status": "Status",
 	"/admin/stacks": "Stacks",
+	"/admin/projects": "Projects",
 	// "/admin/manage-activities":"Activities",
-	// "/admin/manage-projects":"Projects",
 	"/admin/list-sessions": "List Sessions"
 	// "/recent-activities": "Recent Activities",
 }

@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from "react"
 import { mutateMediaUpload } from "@common/admin/media.hooks"
-import type { Column, DataTableProps, RowData } from "./data-table.types"
+import type { Column, DataTableProps, RowData, ActionButton } from "./data-table.types"
 
 export default function DataTable({
 	data: initialData,
@@ -15,7 +15,8 @@ export default function DataTable({
 	enableDelete = true,
 	enableEdit = true,
 	enableSort = true,
-	enableBulkActions = true
+	enableBulkActions = true,
+	actionButtons = []
 }: DataTableProps) {
 	const [data, setData] = useState<RowData[]>(initialData)
 	const [sortColumn, setSortColumn] = useState<string>("")
@@ -388,6 +389,11 @@ export default function DataTable({
 									</div>
 								</th>
 							))}
+							{actionButtons && actionButtons.length > 0 && (
+								<th className="p-3 text-left border-b border-gray-200 font-medium text-gray-700">
+									Actions
+								</th>
+							)}
 						</tr>
 					</thead>
 					<tbody>
@@ -428,12 +434,33 @@ export default function DataTable({
 										/>
 									</td>
 								))}
+								{actionButtons && actionButtons.length > 0 && (
+									<td className="p-3 border-b border-gray-100">
+										<div className="flex gap-2">
+											{actionButtons.map((button, buttonIndex) => (
+												<button
+													key={buttonIndex}
+													onClick={() => button.onClick(row)}
+													disabled={button.disabled ? button.disabled(row) : false}
+													className={`rounded-md ${
+														button.className ||
+														"bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+													}`}
+												>
+													{button.icon}
+													{/* {button.icon && <span className="mr-1"></span>} */}
+													{/* {button.label} */}
+												</button>
+											))}
+										</div>
+									</td>
+								)}
 							</tr>
 						))}
 						{data.length === 0 && (
 							<tr>
 								<td
-									colSpan={columns.length + (enableBulkActions ? 1 : 0)}
+									colSpan={columns.length + (enableBulkActions ? 1 : 0) + (actionButtons && actionButtons.length > 0 ? 1 : 0)}
 									className="p-8 text-center text-gray-500"
 								>
 									No data available

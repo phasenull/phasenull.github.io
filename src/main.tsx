@@ -14,6 +14,7 @@ import AuthorizePage from "@pages/admin/oauth/authorize"
 import StatusPage from "@pages/admin/status"
 import StacksIndex from "@pages/admin/stacks/stacks-index"
 import ProjectsIndexPage from "@pages/admin/projects/projects-index"
+import ProjectEditPage from "@pages/admin/projects/project-edit"
 const client = new QueryClient()
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
@@ -42,7 +43,7 @@ createRoot(document.getElementById("root")!).render(
 							</Route>
 							<Route path="projects">
 								<Route index element={<ProjectsIndexPage />} />
-								<Route path="edit/:project_id" element={<div>Edit Project</div>} />
+								<Route path="edit/:id" element={<ProjectEditPage />} />
 							</Route>
 							<Route path="list-sessions" element={<ListSessionsPage />} />
 							<Route path="status" element={<StatusPage />} />

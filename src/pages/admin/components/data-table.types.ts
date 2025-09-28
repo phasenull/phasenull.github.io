@@ -27,6 +27,14 @@ export interface RowData {
 	_isSelected?: boolean
 }
 
+export interface ActionButton {
+	label: string
+	onClick: (row: RowData) => void
+	className?: string
+	icon?: React.ReactNode
+	disabled?: (row: RowData) => boolean
+}
+
 export interface DataTableProps {
 	height?: string
 	data: RowData[]
@@ -41,6 +49,7 @@ export interface DataTableProps {
 	enableEdit?: boolean
 	enableSort?: boolean
 	enableBulkActions?: boolean
+	actionButtons?: ActionButton[]
 }
 
 // Common entity types for your application
