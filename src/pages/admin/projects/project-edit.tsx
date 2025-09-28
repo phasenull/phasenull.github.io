@@ -1,7 +1,8 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router"
 import { FaArrowLeft, FaEye, FaEdit, FaSave, FaTimes } from "react-icons/fa"
-import { useGetProjectDetails } from "@common/admin/project.hooks"
+import { useGetProjectDetails, type IProject } from "@common/admin/project.hooks"
+import { type IStack } from "@common/admin/stack.hooks"
 import ProjectEditForm from "./components/project-edit-form"
 import ProjectPreview from "./components/project-preview"
 
@@ -12,6 +13,37 @@ export default function ProjectEditPage() {
 	
 	const projectId = parseInt(id || "0", 10)
 	const { data, isLoading, error, refetch } = useGetProjectDetails(projectId)
+	
+	// Form state to preserve changes when switching modes
+	const [formData, setFormData] = useState<Partial<IProject>>({})
+	const [selectedStackIds, setSelectedStackIds] = useState<number[]>([])
+	const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false)
+	
+	// Initialize form data when project loads
+	useEffect(() => {
+		if (data?.project && !hasUnsavedChanges) {
+			setFormData(data.project)
+			setSelectedStackIds(data.relations.map(r => r.stack_id))
+		}
+	}, [data, hasUnsavedChanges])
+	
+	// Handle form data changes
+	const handleFormDataChange = (newData: Partial<IProject>) => {
+		setFormData(prev => ({ ...prev, ...newData }))
+		setHasUnsavedChanges(true)
+	}
+	
+	// Handle stack selection changes
+	const handleStackSelectionChange = (stackIds: number[]) => {
+		setSelectedStackIds(stackIds)
+		setHasUnsavedChanges(true)
+	}
+	
+	// Handle successful save
+	const handleSaveSuccess = () => {
+		setHasUnsavedChanges(false)
+		refetch()
+	}
 
 	if (isLoading) {
 		return (
@@ -46,9 +78,13 @@ export default function ProjectEditPage() {
 						</button>
 						<div>
 							<h1 className="text-2xl font-bold text-gray-800">
-								Edit Project: {data.project.title || "Untitled"}
+								Edit Project: {formData.title || data.project.title || "Untitled"}
+								{hasUnsavedChanges && <span className="text-orange-500 ml-2">*</span>}
 							</h1>
-							<p className="text-gray-600">Project ID: {data.project.id}</p>
+							<p className="text-gray-600">
+								Project ID: {data.project.id}
+								{hasUnsavedChanges && <span className="text-sm text-orange-600 ml-2">(unsaved changes)</span>}
+							</p>
 						</div>
 					</div>
 
@@ -87,13 +123,21 @@ export default function ProjectEditPage() {
 						project={data.project}
 						stacks={data.stacks}
 						relations={data.relations}
-						onUpdate={refetch}
+						formData={formData}
+						selectedStackIds={selectedStackIds}
+						onFormDataChange={handleFormDataChange}
+						onStackSelectionChange={handleStackSelectionChange}
+						onSaveSuccess={handleSaveSuccess}
 					/>
 				) : (
 					<ProjectPreview 
-						project={data.project}
+						project={{...data.project, ...formData} as IProject}
 						stacks={data.stacks}
-						relations={data.relations}
+						relations={selectedStackIds.map(stackId => ({
+							stack_id: stackId,
+							project_id: data.project.id
+						}))}
+						hasUnsavedChanges={hasUnsavedChanges}
 					/>
 				)}
 			</div>

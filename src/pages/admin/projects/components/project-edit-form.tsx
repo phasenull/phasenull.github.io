@@ -7,14 +7,23 @@ interface ProjectEditFormProps {
 	project: IProject
 	stacks: IStack[]
 	relations: { stack_id: number; project_id: number }[]
-	onUpdate: () => void
+	formData: Partial<IProject>
+	selectedStackIds: number[]
+	onFormDataChange: (newData: Partial<IProject>) => void
+	onStackSelectionChange: (stackIds: number[]) => void
+	onSaveSuccess: () => void
 }
 
-export default function ProjectEditForm({ project, stacks, relations, onUpdate }: ProjectEditFormProps) {
-	const [formData, setFormData] = useState<Partial<IProject>>(project)
-	const [selectedStackIds, setSelectedStackIds] = useState<number[]>(
-		relations.map(r => r.stack_id)
-	)
+export default function ProjectEditForm({ 
+	project, 
+	stacks, 
+	relations, 
+	formData,
+	selectedStackIds,
+	onFormDataChange,
+	onStackSelectionChange,
+	onSaveSuccess
+}: ProjectEditFormProps) {
 	const [isSaving, setIsSaving] = useState(false)
 	
 	const { data: allStacksData } = useGetAllStacks()
@@ -23,18 +32,14 @@ export default function ProjectEditForm({ project, stacks, relations, onUpdate }
 	const availableStacks = allStacksData?.stacks || []
 
 	const handleInputChange = (field: keyof IProject, value: any) => {
-		setFormData(prev => ({
-			...prev,
-			[field]: value
-		}))
+		onFormDataChange({ [field]: value })
 	}
 
 	const handleStackToggle = (stackId: number) => {
-		setSelectedStackIds(prev => 
-			prev.includes(stackId)
-				? prev.filter(id => id !== stackId)
-				: [...prev, stackId]
-		)
+		const newStackIds = selectedStackIds.includes(stackId)
+			? selectedStackIds.filter(id => id !== stackId)
+			: [...selectedStackIds, stackId]
+		onStackSelectionChange(newStackIds)
 	}
 
 	const handleSave = async () => {
@@ -53,7 +58,7 @@ export default function ProjectEditForm({ project, stacks, relations, onUpdate }
 			// TODO: Handle stack relations update - this would need a separate API endpoint
 			// or include relations in the project update
 			
-			onUpdate()
+			onSaveSuccess()
 			alert("Project updated successfully!")
 		} catch (error) {
 			console.error("Failed to update project:", error)
@@ -64,8 +69,8 @@ export default function ProjectEditForm({ project, stacks, relations, onUpdate }
 	}
 
 	const handleReset = () => {
-		setFormData(project)
-		setSelectedStackIds(relations.map(r => r.stack_id))
+		onFormDataChange(project)
+		onStackSelectionChange(relations.map(r => r.stack_id))
 	}
 
 	return (

@@ -10,9 +10,10 @@ interface ProjectPreviewProps {
 	project: IProject
 	stacks: IStack[]
 	relations: { stack_id: number; project_id: number }[]
+	hasUnsavedChanges?: boolean
 }
 
-export default function ProjectPreview({ project, stacks, relations }: ProjectPreviewProps) {
+export default function ProjectPreview({ project, stacks, relations, hasUnsavedChanges = false }: ProjectPreviewProps) {
 	const tokens = tokenizeProjectContent(project.description || "")
 	
 	const projectStacks = relations
@@ -23,12 +24,24 @@ export default function ProjectPreview({ project, stacks, relations }: ProjectPr
 	return (
 		<div className="p-6">
 			<div className="max-w-4xl mx-auto">
-				<div className="mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-					<h3 className="text-lg font-semibold text-yellow-800 mb-2">
+				<div className={`mb-4 p-4 border rounded-lg ${
+					hasUnsavedChanges 
+						? "bg-orange-50 border-orange-200" 
+						: "bg-yellow-50 border-yellow-200"
+				}`}>
+					<h3 className={`text-lg font-semibold mb-2 ${
+						hasUnsavedChanges 
+							? "text-orange-800" 
+							: "text-yellow-800"
+					}`}>
 						🔍 Preview Mode
+						{hasUnsavedChanges && <span className="ml-2 text-sm">(with unsaved changes)</span>}
 					</h3>
-					<p className="text-yellow-700">
-						This is how your project will appear on the public portfolio page. 
+					<p className={hasUnsavedChanges ? "text-orange-700" : "text-yellow-700"}>
+						{hasUnsavedChanges 
+							? "This preview shows your current changes. Remember to save your changes in Edit Mode before they become permanent."
+							: "This is how your project will appear on the public portfolio page."
+						}
 						{!project.is_visible && (
 							<span className="font-semibold"> Note: This project is currently hidden from the public view.</span>
 						)}
