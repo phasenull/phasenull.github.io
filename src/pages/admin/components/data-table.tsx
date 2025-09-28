@@ -516,12 +516,22 @@ function renderEditor(
           autoFocus
         />
       );
-    
-    default:
+    case "text":
       return (
-        <input
-          type={column.type === 'email' ? 'email' : column.type === 'url' ? 'url' : 'text'}
+        <textarea
           value={value || ''}
+          onChange={(e) => setValue(e.target.value)}
+          onKeyDown={onKeyPress}
+          className={`${baseClasses} min-h-[2.5rem] w-full resize-y`}
+          rows={3}
+          autoFocus
+        />
+      );
+  default:
+    return (
+      <input
+        type={column.type === 'email' ? 'email' : column.type === 'url' ? 'url' : 'text'}
+        value={value || ''}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={onKeyPress}
           className={baseClasses}
