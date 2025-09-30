@@ -1,3 +1,4 @@
+
 interface IState {
 	name: string
 	img: string
@@ -10,6 +11,7 @@ export const navbar_paths = {
 	"/pinboard": "Pinboard"
 }
 
+
 const API_URL_PROD = "https://api.phasenull.dev"
 const API_URL_DEV = "http://localhost:8787"
 export const ENV: "dev" | "production" =
@@ -20,6 +22,8 @@ export const HOST_NAME = new URL(HOST_URL).hostname
 export const personal_info = {
 	pronouns: "he/him",
 	birthdate: new Date("2007/06/01"),
+	education_start_date: new Date("2025/09/01"),
+	call_me: "phase",
 	contact: {
 		email: "contact@phasenull.dev",
 		discord: "https://discord.com/users/465101652018593803",
