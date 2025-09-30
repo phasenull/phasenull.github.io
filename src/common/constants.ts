@@ -20,6 +20,7 @@ export const API_URL = (ENV as any) === "dev" ? API_URL_DEV : API_URL_PROD
 export const HOST_URL = "https://phasenull.dev"
 export const HOST_NAME = new URL(HOST_URL).hostname
 export const personal_info = {
+	timezone: "Europe/Istanbul (UTC+3)",
 	pronouns: "he/him",
 	birthdate: new Date("2007/06/01"),
 	education_start_date: new Date("2025/09/01"),

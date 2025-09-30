@@ -18,7 +18,7 @@ export default function Header() {
 				src={avatar}
 				className="lg:flex-1/5 hidden lg:block justify-center rounded-full self-center aspect-square max-w-[80%] max-h-16 lg:max-h-64 lg:w-full lg:h-full lg:max-w-64"
 			/>
-			<div className="flex-col lg:flex-3/5 flex space-y-4">
+			<div className="flex-col lg:flex-2/5 flex space-y-4">
 				<div className="space-x-3 flex-row lg:items-end text-center flex">
 					<img
 						src={avatar}
@@ -36,9 +36,18 @@ export default function Header() {
 					</a>
 				</div>
 				<h1 className="text-sm lg:text-lg h-max ">
-					yet another {floored_age} year old self-taught software dev located in
-					Türkiye <FlagTR />, i deploy SlopJS to production for fun (im unemployed
-					so yeah). Currently studying computer engineering ({getEducationTitle()}) somewhere on <ExternalLink href="https://en.wikipedia.org/wiki/Earth">Earth</ExternalLink>
+					yet another self-taught but unemployed {floored_age} year old
+					fullstack dev located in Türkiye <FlagTR />. I love TypeScript and 99%
+					of the time i use it for my projects so i can push robust and
+					professional slopjs applications to production. currently studying
+					computer engineering ({getEducationTitle()}) somewhere on{" "}
+					<ExternalLink href="https://en.wikipedia.org/wiki/Earth">
+						Earth
+					</ExternalLink>{" "},
+					but too paranoid to give out any personal info.
+					<br />
+					<br />
+					{personal_info.timezone}
 				</h1>
 			</div>
 			<ContactStack />
@@ -53,9 +62,11 @@ function getYearFromDate(date: Date) {
 }
 function getEducationTitle() {
 	const start_year = new Date(personal_info.education_start_date)
-	const year = getYearFromDate(start_year) - personal_info.education_failed_years
-	console.log("year",year)
-	if (year <= 0 && !personal_info.education_failed_years) return "high school student, not a college student yet"
+	const year =
+		getYearFromDate(start_year) - personal_info.education_failed_years
+	console.log("year", year)
+	if (year <= 0 && !personal_info.education_failed_years)
+		return "high school student, not a college student yet"
 	if (year <= 1) return "freshman/1st year"
 	if (year <= 2) return "sophomore/2nd year"
 	if (year <= 3) return "junior/3rd year"
