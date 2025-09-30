@@ -53,9 +53,9 @@ function getYearFromDate(date: Date) {
 }
 function getEducationTitle() {
 	const start_year = new Date(personal_info.education_start_date)
-	const year = getYearFromDate(start_year)
+	const year = getYearFromDate(start_year) - personal_info.education_failed_years
 	console.log("year",year)
-	if (year <= 0) return "high school student, not a college student yet"
+	if (year <= 0 && !personal_info.education_failed_years) return "high school student, not a college student yet"
 	if (year <= 1) return "freshman/1st year"
 	if (year <= 2) return "sophomore/2nd year"
 	if (year <= 3) return "junior/3rd year"

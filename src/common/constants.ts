@@ -23,6 +23,7 @@ export const personal_info = {
 	pronouns: "he/him",
 	birthdate: new Date("2007/06/01"),
 	education_start_date: new Date("2025/09/01"),
+	education_failed_years: 0, // shout out to burak https://github.com/astudentinearth: (with anakin skywalker voice) I HaTe yOu
 	call_me: "phase",
 	contact: {
 		email: "contact@phasenull.dev",
