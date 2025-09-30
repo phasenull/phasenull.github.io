@@ -49,9 +49,9 @@ export default function ProjectsBodyContainer(props: { tokens: any[] }) {
 						)
 					case "headline":
 						return (
-							<h2 key={i} className="text-xl text-slate-500 mt-2 font-bold">
+							<p key={i} className="text-xl text-slate-500 mt-2 font-bold">
 								{e.text}
-							</h2>
+							</p>
 						)
 					case "video":
 						return (

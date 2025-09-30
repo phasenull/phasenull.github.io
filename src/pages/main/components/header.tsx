@@ -5,6 +5,8 @@ import turkiye_flag_svg from "@assets/phasenull/Flag_of_Turkey.svg"
 import NavBar from "./navbar"
 import { Fragment } from "react/jsx-runtime"
 import { cleanURL } from "@common/util"
+import { Link } from "react-router"
+import ExternalLink from "@common/external-link"
 export default function Header() {
 	const floored_age = Math.floor(
 		(Date.now() - personal_info.birthdate.getTime()) /
@@ -35,23 +37,31 @@ export default function Header() {
 				</div>
 				<h1 className="text-sm lg:text-lg h-max ">
 					yet another {floored_age} year old self-taught software dev located in
-					Türkiye <FlagTR />
-					{ENV === "dev" || true ? (
-						<Fragment>
-							<br />
-							<br />
-							quick disclaimer: if you're seeing this text it means this is a
-							development version of this site.
-							<br />
-							expect things not to work. [27/09/2025]
-							<br />
-						</Fragment>
-					) : null}
+					Türkiye <FlagTR />, i deploy SlopJS to production for fun (im unemployed
+					so yeah). Currently studying computer engineering ({getEducationTitle()}) somewhere on <ExternalLink href="https://en.wikipedia.org/wiki/Earth">Earth</ExternalLink>
 				</h1>
 			</div>
 			<ContactStack />
 		</div>
 	)
+}
+function getYearFromDate(date: Date) {
+	// after september
+	const current_year = new Date().getFullYear()
+	if (date.getMonth() >= 8) return current_year - date.getFullYear() + 1
+	return current_year - date.getFullYear()
+}
+function getEducationTitle() {
+	const start_year = new Date(personal_info.education_start_date)
+	const year = getYearFromDate(start_year)
+	console.log("year",year)
+	if (year <= 0) return "high school student, not a college student yet"
+	if (year <= 1) return "freshman/1st year"
+	if (year <= 2) return "sophomore/2nd year"
+	if (year <= 3) return "junior/3rd year"
+	if (year <= 4) return "senior/4th year"
+	return `hi, ${personal_info.call_me} from 2025 here. 
+	hopefully i've graduated by now 🙏🙏🙏 Im probably unemployed so please hire me: ${personal_info.contact.email}`
 }
 function FlagTR() {
 	return (

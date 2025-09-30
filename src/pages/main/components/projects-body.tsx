@@ -7,9 +7,22 @@ import ProjectsBodyContainer from "./projects-body-container"
 import ProjectsBodyStackContainer from "./projects-body-stack-container"
 import { CiWarning } from "react-icons/ci"
 import { TiWarning } from "react-icons/ti"
+import { useEffect } from "react"
 
-export default function ProjectsBody() {
+export default function ProjectsBody(props: { id?: string; tag?: string }) {
+	const { id, tag } = props
 	const { error, data, isLoading, isFetching } = useGetAllProjects()
+
+	useEffect(() => {
+		if (id) {
+			const project = data?.projects.find((p) => p.id === parseInt(id))
+			if (project) {
+				const bounding_box = document
+					.getElementById(`project-${project.id}`)?.scrollIntoView({ behavior: "smooth",block: "start" })
+			}
+			// focus on that project
+		}
+	}, [data])
 	if (isLoading || isFetching) return <a>loading state</a>
 	if (!data || error) return <a>something went wrong: {error?.message} </a>
 	// return <h4 className="text-2xl text-center font-bold">database'e proje girmeye çok üşendim az bekleyin</h4>
@@ -34,8 +47,9 @@ export default function ProjectsBody() {
 					<div
 						className="bg-blue-50 shadow-md w-[90%] border-slate-300 border-1 mt-10 rounded-xl justify-center lg:max-w-200 px-4 py-4 lg:px-10 lg:py-10 self-center flex flex-col"
 						key={project.id}
+						id={`project-${project.id}`}
 					>
-						<h1 className="text-2xl relative text-center text-slate-500 lg:text-3xl font-bold">
+						<p className="text-2xl relative text-center text-slate-500 lg:text-3xl font-bold">
 							{project.title}
 							{project.disclaimer ? (
 								<span className="absolute right-10 top-0 self-end flex flex-row items-center group">
@@ -86,7 +100,7 @@ export default function ProjectsBody() {
 										)
 									})}
 							</div>
-						</h1>
+						</p>
 						{/* <pre>
 					
 						{JSON.stringify(
