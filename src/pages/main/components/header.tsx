@@ -39,7 +39,7 @@ export default function Header() {
 					yet another self-taught but unemployed {floored_age} year old
 					fullstack dev located in Türkiye <FlagTR />. I love TypeScript and 99%
 					of the time i use it for my projects so i can push robust and
-					professional slopjs applications to production. currently studying
+					professional slopjs applications to production. currently majoring in
 					computer engineering ({getEducationTitle()}) somewhere on{" "}
 					<ExternalLink href="https://en.wikipedia.org/wiki/Earth">
 						Earth
