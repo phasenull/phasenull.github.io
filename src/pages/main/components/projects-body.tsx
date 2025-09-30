@@ -18,7 +18,36 @@ export default function ProjectsBody(props: { id?: string; tag?: string }) {
 			const project = data?.projects.find((p) => p.id === parseInt(id))
 			if (project) {
 				const bounding_box = document
-					.getElementById(`project-${project.id}`)?.scrollIntoView({ behavior: "smooth",block: "start" })
+					.getElementById(`project-${project.id}`)
+					?.scrollIntoView({ behavior: "smooth", block: "start" })
+				// change metadata
+				const metaDescription = document.querySelector(
+					'meta[name="description"]'
+				)
+				function getDescriptionContent() {
+					const tokens = tokenizeProjectContent(project!.description || "")
+					let descriptionText = ""
+					tokens.forEach((token) => {
+						if (
+							["text", "link", "headline", "ghostlink"].includes(token.type)
+						) {
+							descriptionText += (token as any).text
+						}
+						if (token.type === "br") {
+							descriptionText += " "
+						}
+					})
+					return descriptionText || `A project by ${personal_info.call_me}`
+				}
+				document.title = `Projects - ${project.title}`
+				if (metaDescription) {
+					metaDescription.setAttribute("content", getDescriptionContent())
+				} else {
+					const meta = document.createElement("meta")
+					meta.name = "description"
+					meta.content = getDescriptionContent()
+					document.head.appendChild(meta)
+				}
 			}
 			// focus on that project
 		}
