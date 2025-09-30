@@ -19,7 +19,7 @@ export default function ProjectsBody(props: { id?: string; tag?: string }) {
 			if (project) {
 				const bounding_box = document
 					.getElementById(`project-${project.id}`)
-					?.scrollIntoView({ behavior: "smooth", block: "start" })
+					?.scrollIntoView({ behavior: "smooth", block: "center" })
 				// change metadata
 				const metaDescription = document.querySelector(
 					'meta[name="description"]'
