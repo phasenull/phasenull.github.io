@@ -5,7 +5,7 @@ import banner from "@assets/phasenull/banner.jpg"
 import { navbar_paths } from "@common/constants"
 import AdminLayout from "@pages/admin/admin-layout"
 import { useLocation } from "react-router"
-const default_title = "phasenull - yet another fullstack developer"
+const default_title = "phasenull - Fullstack Developer"
 export default function Layout(props: { children: any }) {
 	const { pathname } = useLocation()
 	const path_title = Object.values(navbar_paths).find(
