@@ -1,13 +1,10 @@
-import NavBar from "./components/navbar"
 import Header from "./components/header"
+import NavBar from "./components/navbar"
 
 import banner from "@assets/phasenull/banner.jpg"
-import DashboardPanel from "./components/dashboard-panel"
-import { useLocation } from "react-router"
-import AdminLayout from "@pages/admin/admin-layout"
 import { navbar_paths } from "@common/constants"
-import ContactStack from "./components/contact-stack"
-import { cleanURL } from "@common/util"
+import AdminLayout from "@pages/admin/admin-layout"
+import { useLocation } from "react-router"
 export default function Layout(props: { children: any }) {
 	const { pathname } = useLocation()
 	const path_title = Object.values(navbar_paths).find(
@@ -17,7 +14,7 @@ export default function Layout(props: { children: any }) {
 		document.title = "phasenull.dev - yet another fullstack developer"
 	} else {
 		document.title = path_title
-			? `phasenull.dev - ${path_title}`
+			? `${path_title}`
 			: "phasenull.dev - yet another fullstack developer"
 	}
 	if (pathname.startsWith("/admin"))

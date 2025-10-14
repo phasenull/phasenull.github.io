@@ -39,7 +39,7 @@ export default function ProjectsBody(props: { id?: string; tag?: string }) {
 					})
 					return descriptionText || `A project by ${personal_info.call_me}`
 				}
-				document.title = `Projects - ${project.title}`
+				document.title = `${project.title} - Projects`
 				if (metaDescription) {
 					metaDescription.setAttribute("content", getDescriptionContent())
 				} else {
