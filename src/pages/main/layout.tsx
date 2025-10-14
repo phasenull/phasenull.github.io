@@ -5,17 +5,18 @@ import banner from "@assets/phasenull/banner.jpg"
 import { navbar_paths } from "@common/constants"
 import AdminLayout from "@pages/admin/admin-layout"
 import { useLocation } from "react-router"
+const default_title = "phasenull - yet another fullstack developer"
 export default function Layout(props: { children: any }) {
 	const { pathname } = useLocation()
 	const path_title = Object.values(navbar_paths).find(
 		(_, i) => Object.keys(navbar_paths)[i] === pathname
 	)
 	if (pathname === "/") {
-		document.title = "phasenull.dev - yet another fullstack developer"
+		document.title = default_title
 	} else {
 		document.title = path_title
 			? `${path_title}`
-			: "phasenull.dev - yet another fullstack developer"
+			: default_title
 	}
 	if (pathname.startsWith("/admin"))
 		return <AdminLayout>{props.children}</AdminLayout>
