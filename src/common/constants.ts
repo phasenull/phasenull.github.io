@@ -8,7 +8,7 @@ interface IState {
 export const navbar_paths = {
 	"/": "Projects",
 	// "/career": "Career",
-	"/pinboard": "Pinboard"
+	// "/pinboard": "Pinboard"
 }
 
 
