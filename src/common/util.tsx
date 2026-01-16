@@ -1,7 +1,9 @@
 // thanks chatgpt for writing this tokenizer 🙏🙏🙏
 
 import { HOST_NAME, HOST_URL } from "./constants"
-
+export function clamp(num: number, min: number, max: number) {
+	return Math.min(Math.max(num, min), max)
+}
 export function tokenizeProjectContent(paragraph: string) {
 	const tokens = []
 	let currentIndex = 0
