@@ -8,14 +8,14 @@ export default function ProjectsBodyContainer(props: { tokens: any[] }) {
 	const { tokens } = props
 
 	return (
-		<div>
+		<div className="leading-1">
 			{tokens.map((e, i) => {
 				const previous_element = tokens[i - 1]
 				switch (e.type) {
 					case "text":
 						return (
 							<span
-								className="text-xs text-slate-700 leading-1 lg:text-[16px]"
+								className="text-xs text-slate-700 lg:text-[16px]"
 								key={i}
 							>
 								{e.text}

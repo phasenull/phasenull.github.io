@@ -52,8 +52,9 @@ export default function ProjectsBody(props: { id?: string; tag?: string }) {
 			// focus on that project
 		}
 	}, [data])
-	if (isLoading || isFetching) return <a>loading state</a>
-	if (!data || error) return <a>something went wrong: {error?.message} </a>
+	if (isLoading || isFetching) return <div className="h-64">loading state</div>
+	if (!data || error)
+		return <div className="h-64">something went wrong: {error?.message} </div>
 	// return <h4 className="text-2xl text-center font-bold">database'e proje girmeye çok üşendim az bekleyin</h4>
 	return (
 		<div className="bg-white flex flex-col justify-center pb-30">
@@ -74,7 +75,8 @@ export default function ProjectsBody(props: { id?: string; tag?: string }) {
 				const tokens = tokenizeProjectContent(project.description)
 				return (
 					<div
-						className="bg-slate-50 shadow-sm w-[90%] border-slate-200 border-1 mt-10 rounded-xl justify-center lg:max-w-200 px-4 py-4 lg:px-10 lg:py-10 self-center flex flex-col"
+						className="shadow-sm w-[90%] border-slate-200 border-1 mt-5 rounded-xl
+						justify-center lg:max-w-200 px-4 py-2 lg:px-10 lg:py-5 self-center flex flex-col"
 						key={project.id}
 						id={`project-${project.id}`}
 					>
@@ -113,7 +115,7 @@ export default function ProjectsBody(props: { id?: string; tag?: string }) {
 													}
 											  ))}
 							</p>
-							<div className="flex mt-4 overflow-visible flex-wrap space-x-4 justify-center">
+							<div className="flex mt-1 lg:mt-4 overflow-visible flex-wrap space-x-4 justify-center">
 								{data.relations
 									.filter((e) => e.project_id === project.id)
 									.map((e) => data.stacks.find((s) => s.id === e.stack_id))

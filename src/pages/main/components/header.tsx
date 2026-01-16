@@ -13,7 +13,7 @@ export default function Header() {
 			(365 * 24 * 60 * 60 * 1000)
 	)
 	return (
-		<div className="self-center lg:gap-x-4 lg:w-[80%] bg-white lg:mt-10 pt-5 px-10 flex-col lg:flex-row flex rounded-t-[40px] relative lg:justify-between">
+		<div className="self-center lg:gap-x-4 lg:w-[80%] bg-white lg:mt-10 pt-5 px-5 lg:px-10 flex-col lg:flex-row flex rounded-t-[40px] relative lg:justify-between">
 			<img
 				src={avatar}
 				className="lg:flex-1/5 hidden lg:block justify-center rounded-full self-center aspect-square max-w-[80%] max-h-16 lg:max-h-64 lg:w-full lg:h-full lg:max-w-64"
@@ -35,16 +35,23 @@ export default function Header() {
 						{personal_info.pronouns}
 					</a>
 				</div>
-				<h1 className="text-sm lg:text-lg h-max ">
-					yet another self-taught but unemployed {floored_age} year old
-					fullstack dev located in Türkiye <FlagTR />. I love TypeScript and 99%
-					of the time i use it for my projects so i can push robust and
-					professional slopjs applications to production. currently majoring in
-					computer engineering ({getEducationTitle()}) somewhere on{" "}
-					<ExternalLink href="https://en.wikipedia.org/wiki/Earth">
-						Earth
+				<h1 className="text-sm lg:text-lg leading-4 lg:leading-6 h-max lg:max-w-[90%] ">
+					yet another {floored_age} year old Roblox and fullstack dev located in
+					Türkiye <FlagTR />. Currently majoring in computer engineering (
+					{getEducationTitle()}). I do fullstack web as more of a hobby, my main
+					focus is Roblox development nowadays.
+					<br />
+					yea, i like TypeScript and prefer{" "}
+					<ExternalLink href="https://roblox-ts.com/">
+						roblox-ts
 					</ExternalLink>{" "}
-					, but too paranoid to give out any personal info.
+					(with{" "}
+					<ExternalLink href="https://flamework.fireboltofdeath.dev/">
+						flamework
+					</ExternalLink>)
+					over luau.
+					<i> no, I don't take commissions at the moment.</i> but feel free to
+					say hi.
 					<br />
 					<br />
 					{personal_info.timezone}

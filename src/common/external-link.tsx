@@ -14,7 +14,7 @@ export default function ExternalLink({
 			to={{ hash: `consent=${href}` }}
 		>
 			{children}
-			<FaExternalLinkAlt className="inline-block mb-1 ml-1" size={8} />
+			<FaExternalLinkAlt className="inline-block mb-2 ml-1/2" size={6} />
 		</Link>
 	)
 }
