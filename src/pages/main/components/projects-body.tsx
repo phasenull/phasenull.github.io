@@ -39,7 +39,7 @@ export default function ProjectsBody(props: { id?: string; tag?: string }) {
 					})
 					return descriptionText || `A project by ${personal_info.call_me}`
 				}
-				document.title = `${project.title} - Projects`
+				document.title = `${project.title}`
 				if (metaDescription) {
 					metaDescription.setAttribute("content", getDescriptionContent())
 				} else {
@@ -78,7 +78,7 @@ export default function ProjectsBody(props: { id?: string; tag?: string }) {
 						key={project.id}
 						id={`project-${project.id}`}
 					>
-						<p className="text-2xl relative text-center text-slate-500 lg:text-3xl font-bold">
+						<div className="text-2xl relative text-center text-slate-500 lg:text-3xl font-bold">
 							{project.title}
 							{project.disclaimer ? (
 								<span className="absolute right-10 top-0 self-end flex flex-row items-center group">
@@ -129,7 +129,7 @@ export default function ProjectsBody(props: { id?: string; tag?: string }) {
 										)
 									})}
 							</div>
-						</p>
+						</div>
 						{/* <pre>
 					
 						{JSON.stringify(

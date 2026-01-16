@@ -12,11 +12,17 @@ export default function Layout(props: { children: any }) {
 		(_, i) => Object.keys(navbar_paths)[i] === pathname
 	)
 	if (pathname === "/") {
-		document.title = default_title
+		const existing_metadata = document.querySelector('meta[name="description"]')
+		if (!existing_metadata) {
+			document.title = default_title
+			const metadata = document.createElement("meta")
+			metadata.name = "description"
+			metadata.content =
+				"Hi, I'm phasenull. I do Roblox and Fullstack development."
+			document.head.appendChild(metadata)
+		}
 	} else {
-		document.title = path_title
-			? `${path_title}`
-			: default_title
+		document.title = path_title ? `${path_title}` : default_title
 	}
 	if (pathname.startsWith("/admin"))
 		return <AdminLayout>{props.children}</AdminLayout>

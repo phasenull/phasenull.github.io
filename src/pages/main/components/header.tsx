@@ -69,7 +69,7 @@ function getEducationTitle() {
 
 	const year_in_ms = 365 * 24 * 60 * 60 * 1000
 	const diff_years = (Date.now() - final_date.getTime()) / year_in_ms
-	console.log(`diff/term ${diff_years} / ${final_date}`)
+	// console.log(`diff/term ${diff_years} / ${final_date}`)
 	if (diff_years <= 0 && !personal_info.education_failed_years)
 		return "high school student, not a college student yet"
 	if (diff_years <= 1) return "freshman/1st year"
