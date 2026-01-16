@@ -11,7 +11,7 @@ export const navbar_paths = {
 	// "/pinboard": "Pinboard"
 }
 
-
+const ROOT_TITLE = "phasenull - Roblox & Fullstack Developer"
 const API_URL_PROD = "https://api.phasenull.dev"
 const API_URL_DEV = "http://localhost:8787"
 export const ENV: "dev" | "production" =
