@@ -23,19 +23,19 @@ createRoot(document.getElementById("root")!).render(
 				<Layout>
 					<Routes>
 						<Route index element={<IndexPage />} />
-						<Route
+						{/* <Route
 							path="pinboard"
 							element={<RecentActivitiesPage />}
-						/>
-						<Route
+						/> */}
+						{/* <Route
 							path="career"
 							element={<RecentActivitiesPage />}
-						/>
+						/> */}
 						<Route path="projects">
 							<Route path=":id/:tag" element={<IndexPage/>} />
 							<Route path=":id" element={<IndexPage/>} />
 						</Route>
-						<Route path="client-area/*" element={<ClientAreaPage />} />
+						{/* <Route path="client-area/*" element={<ClientAreaPage />} /> */}
 						<Route path="admin/*">
 							<Route index element={<AdminPage />} />
 							<Route

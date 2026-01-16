@@ -43,8 +43,8 @@ export default function Header() {
 					computer engineering ({getEducationTitle()}) somewhere on{" "}
 					<ExternalLink href="https://en.wikipedia.org/wiki/Earth">
 						Earth
-					</ExternalLink>{" "},
-					but too paranoid to give out any personal info.
+					</ExternalLink>{" "}
+					, but too paranoid to give out any personal info.
 					<br />
 					<br />
 					{personal_info.timezone}
@@ -61,16 +61,21 @@ function getYearFromDate(date: Date) {
 	return current_year - date.getFullYear()
 }
 function getEducationTitle() {
-	const start_year = new Date(personal_info.education_start_date)
-	const year =
-		getYearFromDate(start_year) - personal_info.education_failed_years
-	console.log("year", year)
-	if (year <= 0 && !personal_info.education_failed_years)
+	const start_date = new Date(personal_info.education_start_date)
+	let final_date = start_date
+	final_date.setFullYear(
+		start_date.getFullYear() + personal_info.education_failed_years
+	)
+
+	const year_in_ms = 365 * 24 * 60 * 60 * 1000
+	const diff_years = (Date.now() - final_date.getTime()) / year_in_ms
+	console.log(`diff/term ${diff_years} / ${final_date}`)
+	if (diff_years <= 0 && !personal_info.education_failed_years)
 		return "high school student, not a college student yet"
-	if (year <= 1) return "freshman/1st year"
-	if (year <= 2) return "sophomore/2nd year"
-	if (year <= 3) return "junior/3rd year"
-	if (year <= 4) return "senior/4th year"
+	if (diff_years <= 1) return "freshman/1st year"
+	if (diff_years <= 2) return "sophomore/2nd year"
+	if (diff_years <= 3) return "junior/3rd year"
+	if (diff_years <= 4) return "senior/4th year"
 	return `hi, ${personal_info.call_me} from 2025 here. 
 	hopefully i've graduated by now 🙏🙏🙏 Im probably unemployed so please hire me: ${personal_info.contact.email}`
 }

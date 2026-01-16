@@ -3,7 +3,6 @@ import discord_svg from "@assets/social/discord.svg"
 import youtube_img from "@assets/social/youtube.svg"
 import github_img from "@assets/social/github.svg"
 import twitter_svg from "@assets/social/Twitter.svg"
-import linkedin_img from "@assets/social/linkedin.svg"
 import roblox_img from "@assets/social/Roblox_Tilt_Black.png"
 import { cleanURL } from "@common/util"
 export default function ContactStack() {
@@ -25,10 +24,10 @@ export default function ContactStack() {
 				<SocialLinkWrapper href={cleanURL(personal_info.contact.youtube)}>
 					<SocialImageWrapper className="h-8" url={youtube_img} />
 				</SocialLinkWrapper>
-				<SocialLinkWrapper href={cleanURL(personal_info.contact.cursed_platform)}>
+				{/* <SocialLinkWrapper href={cleanURL(personal_info.contact.cursed_platform)}>
 					<p className="absolute -top-4 -right-2 rotate-[15deg]">💩</p>
 					<SocialImageWrapper url={linkedin_img} />
-				</SocialLinkWrapper>
+				</SocialLinkWrapper> */}
 				<SocialLinkWrapper href={cleanURL(personal_info.contact.twitter)}>
 					<SocialImageWrapper className="h-7" url={twitter_svg} />
 				</SocialLinkWrapper>

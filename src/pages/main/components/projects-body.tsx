@@ -56,7 +56,7 @@ export default function ProjectsBody(props: { id?: string; tag?: string }) {
 	if (!data || error) return <a>something went wrong: {error?.message} </a>
 	// return <h4 className="text-2xl text-center font-bold">database'e proje girmeye çok üşendim az bekleyin</h4>
 	return (
-		<div className="bg-white flex flex-col justify-center pb-60">
+		<div className="bg-white flex flex-col justify-center pb-30">
 			<h4 className="text-2xl text-slate-600 mt-10 lg:text-4xl font-bold font-sans text-center">
 				projects i'm proud to display
 				<p className="text-sm lg:text-xl text-slate-300">
@@ -74,7 +74,7 @@ export default function ProjectsBody(props: { id?: string; tag?: string }) {
 				const tokens = tokenizeProjectContent(project.description)
 				return (
 					<div
-						className="bg-blue-50 shadow-md w-[90%] border-slate-300 border-1 mt-10 rounded-xl justify-center lg:max-w-200 px-4 py-4 lg:px-10 lg:py-10 self-center flex flex-col"
+						className="bg-slate-50 shadow-sm w-[90%] border-slate-200 border-1 mt-10 rounded-xl justify-center lg:max-w-200 px-4 py-4 lg:px-10 lg:py-10 self-center flex flex-col"
 						key={project.id}
 						id={`project-${project.id}`}
 					>
