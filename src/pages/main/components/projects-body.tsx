@@ -13,45 +13,39 @@ export default function ProjectsBody(props: { id?: string; tag?: string }) {
 	const { id, tag } = props
 	const { error, data, isLoading, isFetching } = useGetAllProjects()
 
-	useEffect(() => {
-		if (id) {
-			const project = data?.projects.find((p) => p.id === parseInt(id))
-			if (project) {
-				const bounding_box = document
-					.getElementById(`project-${project.id}`)
-					?.scrollIntoView({ behavior: "smooth", block: "center" })
-				// change metadata
-				const metaDescription = document.querySelector(
-					'meta[name="description"]'
-				)
-				function getDescriptionContent() {
-					const tokens = tokenizeProjectContent(project!.description || "")
-					let descriptionText = ""
-					tokens.forEach((token) => {
-						if (
-							["text", "link", "headline", "ghostlink"].includes(token.type)
-						) {
-							descriptionText += (token as any).text
-						}
-						if (token.type === "br") {
-							descriptionText += " "
-						}
-					})
-					return descriptionText || `A project by ${personal_info.call_me}`
-				}
-				document.title = `${project.title} - Projects`
-				if (metaDescription) {
-					metaDescription.setAttribute("content", getDescriptionContent())
-				} else {
-					const meta = document.createElement("meta")
-					meta.name = "description"
-					meta.content = getDescriptionContent()
-					document.head.appendChild(meta)
-				}
+	if (id) {
+		const project = data?.projects.find((p) => p.id === parseInt(id))
+		if (project) {
+			const bounding_box = document
+				.getElementById(`project-${project.id}`)
+				?.scrollIntoView({ behavior: "smooth", block: "center" })
+			// change metadata
+			const metaDescription = document.querySelector('meta[name="description"]')
+			function getDescriptionContent() {
+				const tokens = tokenizeProjectContent(project!.description || "")
+				let descriptionText = ""
+				tokens.forEach((token) => {
+					if (["text", "link", "headline", "ghostlink"].includes(token.type)) {
+						descriptionText += (token as any).text
+					}
+					if (token.type === "br") {
+						descriptionText += " "
+					}
+				})
+				return descriptionText || `A project by ${personal_info.call_me}`
 			}
-			// focus on that project
+			document.title = `${project.title} - Projects`
+			if (metaDescription) {
+				metaDescription.setAttribute("content", getDescriptionContent())
+			} else {
+				const meta = document.createElement("meta")
+				meta.name = "description"
+				meta.content = getDescriptionContent()
+				document.head.appendChild(meta)
+			}
 		}
-	}, [data])
+		// focus on that project
+	}
 	if (isLoading || isFetching) return <a>loading state</a>
 	if (!data || error) return <a>something went wrong: {error?.message} </a>
 	// return <h4 className="text-2xl text-center font-bold">database'e proje girmeye çok üşendim az bekleyin</h4>

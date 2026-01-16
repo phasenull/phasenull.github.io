@@ -14,8 +14,8 @@ export const navbar_paths = {
 
 const API_URL_PROD = "https://api.phasenull.dev"
 const API_URL_DEV = "http://localhost:8787"
-export const ENV: "dev" | "production" = "production"
-	// window.location.hostname === "localhost" ? "dev" : "production"
+export const ENV: "dev" | "production" =
+	window.location.hostname === "localhost" ? "dev" : "production"
 export const API_URL = (ENV as any) === "dev" ? API_URL_DEV : API_URL_PROD
 export const HOST_URL = "https://phasenull.dev"
 export const HOST_NAME = new URL(HOST_URL).hostname
