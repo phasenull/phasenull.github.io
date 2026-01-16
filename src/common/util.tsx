@@ -7,8 +7,9 @@ export function tokenizeProjectContent(paragraph: string) {
 	let currentIndex = 0
 
 	// Merge regex into one master regex
+	// IMAGE_CAROUSEL accepts comma-separated URLs: %{IMAGE_CAROUSEL}%alt|url1,url2,url3%{IMAGE_CAROUSEL}%
 	const combinedRegex =
-		/%\{(GHOSTLINK|IMAGE|VIDEO|HEADLINE)\}%([^|]+)\|([^%]+)%\{\1\}%/g
+		/%\{(GHOSTLINK|IMAGE|IMAGE_CAROUSEL|VIDEO|HEADLINE)\}%([^|]+)\|([^%]+)%\{\1\}%/g
 
 	let lastIndex = 0
 
@@ -52,7 +53,7 @@ export function tokenizeProjectContent(paragraph: string) {
 
 	return tokens as (
 		| { type: "text" | "headline"; text: string }
-		| { type: "ghostlink" | "image" | "video"; text: string; url: string }
+		| { type: "ghostlink" | "image" | "image_carousel" | "video"; text: string; url: string }
 		| { type: "br" }
 	)[]
 }

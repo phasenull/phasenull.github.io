@@ -2,6 +2,7 @@ import { FaExternalLinkAlt } from "react-icons/fa"
 import VideoWrapper from "./video-wrapper"
 import { Link } from "react-router"
 import { cleanURL } from "@common/util"
+import ImageCarousel from "./image-carousel"
 
 export default function ProjectsBodyContainer(props: { tokens: any[] }) {
 	const { tokens } = props
@@ -45,6 +46,14 @@ export default function ProjectsBodyContainer(props: { tokens: any[] }) {
 								src={cleanURL(e.url)}
 								alt={e.text}
 								className="max-h-200 object-contain object-left w-full rounded-2xl"
+							/>
+						)
+					case "image_carousel":
+						return (
+							<ImageCarousel
+								key={i}
+								urls={e.url.split(",")}
+								alt={e.text}
 							/>
 						)
 					case "headline":
