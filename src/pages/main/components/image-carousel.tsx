@@ -55,34 +55,41 @@ export default function ImageCarousel({ urls, alt }: ImageCarouselProps) {
 					<img
 						src={validUrls[currentIndex]}
 						alt={alt || `Image ${currentIndex + 1}`}
-						className="max-h-200 object-contain object-left w-full rounded-2xl transition-opacity"
+						className="h-96 object-contain mx-auto w-full rounded-2xl transition-opacity"
 					/>
 					<div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors rounded-2xl flex items-center justify-center">
-						<span className="text-white opacity-0 group-hover:opacity-100 transition-opacity text-sm bg-black/50 px-3 py-1 rounded-full">
+						<span className="select-none text-white opacity-0 group-hover:opacity-100 transition-opacity text-sm bg-black/50 px-3 py-1 rounded-full">
 							Click to view fullscreen
 						</span>
 					</div>
-				</div>
 
-				{/* Navigation Arrows (only if multiple images) */}
-				{validUrls.length > 1 && (
-					<>
-						<button
-							onClick={(e) => { e.stopPropagation(); goToPrevious() }}
-							className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-slate-700 p-2 rounded-full shadow-md transition-colors"
-							aria-label="Previous image"
-						>
-							<IoChevronBack size={20} />
-						</button>
-						<button
-							onClick={(e) => { e.stopPropagation(); goToNext() }}
-							className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-slate-700 p-2 rounded-full shadow-md transition-colors"
-							aria-label="Next image"
-						>
-							<IoChevronForward size={20} />
-						</button>
-					</>
-				)}
+					{/* Navigation Arrows (only if multiple images) */}
+					{validUrls.length > 1 && (
+						<>
+							<button
+								onClick={(e) => { e.stopPropagation(); goToPrevious() }}
+								className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white hover:scale-110 text-slate-700 p-2 rounded-full shadow-md transition-all active:scale-95"
+								aria-label="Previous image"
+							>
+								<IoChevronBack size={20} />
+							</button>
+							<button
+								onClick={(e) => { e.stopPropagation(); goToNext() }}
+								className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white hover:scale-110 text-slate-700 p-2 rounded-full shadow-md transition-all active:scale-95"
+								aria-label="Next image"
+							>
+								<IoChevronForward size={20} />
+							</button>
+						</>
+					)}
+
+					{/* Image Counter */}
+					{validUrls.length > 1 && (
+						<div className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded-full">
+							{currentIndex + 1} / {validUrls.length}
+						</div>
+					)}
+				</div>
 
 				{/* Thumbnails (only if multiple images) */}
 				{validUrls.length > 1 && (
@@ -104,13 +111,6 @@ export default function ImageCarousel({ urls, alt }: ImageCarouselProps) {
 								/>
 							</button>
 						))}
-					</div>
-				)}
-
-				{/* Image Counter */}
-				{validUrls.length > 1 && (
-					<div className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded-full">
-						{currentIndex + 1} / {validUrls.length}
 					</div>
 				)}
 			</div>
@@ -150,14 +150,14 @@ export default function ImageCarousel({ urls, alt }: ImageCarouselProps) {
 						<>
 							<button
 								onClick={goToPrevious}
-								className="absolute left-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+								className="absolute left-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white hover:scale-110 p-3 rounded-full bg-white/10 hover:bg-white/20 transition-all active:scale-95"
 								aria-label="Previous image"
 							>
 								<IoChevronBack size={32} />
 							</button>
 							<button
 								onClick={goToNext}
-								className="absolute right-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+								className="absolute right-4 top-1/2 -translate-y-1/2 text-white/80 hover:text-white hover:scale-110 p-3 rounded-full bg-white/10 hover:bg-white/20 transition-all active:scale-95"
 								aria-label="Next image"
 							>
 								<IoChevronForward size={32} />
