@@ -71,12 +71,18 @@ export default function ProjectsBody(props: { id?: string; tag?: string }) {
 					</a>
 				</p>
 			</h4>
-			{data.projects.map((project, index) => {
+			{data.projects.sort((a,b)=>{
+				if (a.project_end_date === null) return -1
+				if (b.project_end_date === null) return 1
+				const dateA = new Date(a.project_end_date)
+				const dateB = new Date(b.project_end_date)
+				return dateB.getTime() - dateA.getTime()
+			}).map((project, index) => {
 				const tokens = tokenizeProjectContent(project.description)
 				return (
 					<div
 						className="shadow-sm w-[90%] border-slate-200 border-1 mt-5 rounded-xl
-						justify-center lg:max-w-5xl px-4 py-2 lg:px-10 lg:py-5 self-center flex flex-col"
+					justify-center lg:max-w-5xl px-4 py-2 lg:px-10 lg:py-5 self-center flex flex-col"
 						key={project.id}
 						id={`project-${project.id}`}
 					>
