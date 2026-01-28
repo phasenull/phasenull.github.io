@@ -26,7 +26,6 @@ export default function ProjectsBodyStackContainer(props: { stack: any }) {
 						switch (token.type) {
 							case "br":
 								return <br key={i} />
-								return
 							case "text":
 								return <span key={i}>{token.text}</span>
 						}
