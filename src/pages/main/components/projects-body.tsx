@@ -76,7 +76,7 @@ export default function ProjectsBody(props: { id?: string; tag?: string }) {
 				return (
 					<div
 						className="shadow-sm w-[90%] border-slate-200 border-1 mt-5 rounded-xl
-						justify-center lg:max-w-200 px-4 py-2 lg:px-10 lg:py-5 self-center flex flex-col"
+						justify-center lg:max-w-5xl px-4 py-2 lg:px-10 lg:py-5 self-center flex flex-col"
 						key={project.id}
 						id={`project-${project.id}`}
 					>
@@ -115,7 +115,7 @@ export default function ProjectsBody(props: { id?: string; tag?: string }) {
 													}
 											  ))}
 							</p>
-							<div className="flex mt-1 lg:mt-4 overflow-visible flex-wrap space-x-4 justify-center">
+							<div className="flex mt-1 mb-4 lg:mt-4 overflow-visible flex-wrap space-x-4 justify-center">
 								{data.relations
 									.filter((e) => e.project_id === project.id)
 									.map((e) => data.stacks.find((s) => s.id === e.stack_id))
