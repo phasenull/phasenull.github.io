@@ -35,7 +35,7 @@ export default function Header() {
 						{personal_info.pronouns}
 					</a>
 				</div>
-				<h1 className="text-sm lg:text-lg font-sans font-normal sm:font-medium leading-4 lg:leading-6 h-max lg:max-w-[90%] ">
+				<h1 className="text-sm lg:text-lg text-slate-500 font-sans font-normal sm:font-medium leading-4 lg:leading-6 h-max lg:max-w-[90%] ">
 					yet another {floored_age} year old Roblox and fullstack dev located in
 					Türkiye <FlagTR />. Currently majoring in computer engineering (
 					{getEducationTitle()}). I do fullstack web as more of a hobby, my main
