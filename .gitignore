@@ -24,3 +24,5 @@ dist
 *.sln
 *.sw?
 .env
+# cf build output and generated types
+.cloudflare/
