@@ -5,7 +5,8 @@ import { slugify } from "@common/slug"
 import { BlobCover, getProjectLinks, getProjectMedia, getProjectSummary, type Project, type Stack } from "./project-media"
 
 export function formatMonth(date: string) {
-	return new Date(date).toLocaleString("en-US", { month: "short", year: "numeric" })
+	// dates are stored as midnight Istanbul time; format them there so every visitor sees the same month
+	return new Date(date).toLocaleString("en-US", { month: "short", year: "numeric", timeZone: "Europe/Istanbul" })
 }
 export function formatRange(project: Project) {
 	if (project.project_end_date === project.project_start_date) return formatMonth(project.project_start_date)

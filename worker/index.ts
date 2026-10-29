@@ -211,7 +211,8 @@ function coverImage(project: Project) {
 }
 
 function dateRange(project: Project) {
-	const fmt = (d: string) => new Date(d).toLocaleString("en-US", { month: "short", year: "numeric", timeZone: "UTC" })
+	// dates are stored as midnight Istanbul time
+	const fmt = (d: string) => new Date(d).toLocaleString("en-US", { month: "short", year: "numeric", timeZone: "Europe/Istanbul" })
 	if (!project.project_start_date) return ""
 	if (project.project_end_date === project.project_start_date) return fmt(project.project_start_date)
 	return `${fmt(project.project_start_date)} – ${project.project_end_date ? fmt(project.project_end_date) : "Present"}`
