@@ -1,5 +1,6 @@
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
+import "@fontsource-variable/nunito"
 import "./index.css"
 import { BrowserRouter, createBrowserRouter, Route, Routes } from "react-router"
 import IndexPage from "./pages/main"

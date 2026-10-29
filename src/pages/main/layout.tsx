@@ -1,68 +1,46 @@
 import Header from "./components/header"
-import NavBar from "./components/navbar"
 
 import banner from "@assets/phasenull/banner.jpg"
 import { navbar_paths } from "@common/constants"
-import { clamp } from "@common/util"
 import AdminLayout from "@pages/admin/admin-layout"
-import { useEffect, useState } from "react"
 import { useLocation } from "react-router"
-const default_title = "phasenull - Fullstack Developer"
+const default_title = "phasenull — Roblox & Fullstack Developer"
 export default function Layout(props: { children: any }) {
 	const { pathname } = useLocation()
 	const path_title = Object.values(navbar_paths).find(
 		(_, i) => Object.keys(navbar_paths)[i] === pathname
 	)
-	const [scroll_amount, set_scroll_amount] = useState(0)
 	if (pathname === "/") {
 		const existing_metadata = document.querySelector('meta[name="description"]')
+		document.title = default_title
+		// closing a project puts the home description back (the worker sets the initial one)
+		if (existing_metadata && existing_metadata.getAttribute("data-project")) {
+			existing_metadata.removeAttribute("data-project")
+			existing_metadata.setAttribute("content", existing_metadata.getAttribute("data-home") || "")
+		}
 		if (!existing_metadata) {
-			document.title = default_title
 			const metadata = document.createElement("meta")
 			metadata.name = "description"
 			metadata.content =
 				"Hi, I'm phasenull. I do Roblox and Fullstack development."
 			document.head.appendChild(metadata)
 		}
-	} else {
+	} else if (!pathname.startsWith("/projects/")) {
+		// project pages set their own title (projects-body.tsx)
 		document.title = path_title ? `${path_title}` : default_title
 	}
-	useEffect(() => {
-		const root = document.getElementById("main")
-		const eventHandler = () => {
-			set_scroll_amount(root?.scrollTop || 0)
-		}
-		root?.addEventListener("scroll", eventHandler)
-		return () => {
-			root?.removeEventListener("scroll", eventHandler)
-		}
-	}, [])
 	if (pathname.startsWith("/admin"))
 		return <AdminLayout>{props.children}</AdminLayout>
-	const default_h = 144 * 4
 	return (
-		<div
-			id="main"
-			className="h-screen w-screen flex flex-col overflow-x-hidden overflow-y-scroll"
-		>
-			<div>
-				<img
-					style={{
-						objectFit: "cover",
-						height: clamp(
-							((scroll_amount / 50 + 100) / 100) * default_h,
-							default_h,
-							default_h*4
-						)
-					}}
-					className="hidden lg:block h-144 lg:h-[40%] overflow-x-hidden scale-100 -z-10 absolute"
-					src={banner}
-				/>
+		<div id="main" className="relative flex min-h-screen flex-col overflow-x-clip">
+			{/* full-width banner, only the content below is width-limited */}
+			<div className="absolute inset-x-0 top-0 h-52 sm:h-[38rem]" aria-hidden>
+				<img src={banner} alt="" className="size-full object-cover" />
+				<div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-slime-50 sm:h-56" />
 			</div>
-			<Header />
-			<NavBar />
-			<div className="bg-white" id="page">
-				{props.children}
+			<div className="relative mx-auto w-full max-w-6xl flex-1 px-3 pb-16 pt-16 sm:px-6 sm:pb-24 sm:pt-36">
+				<Header />
+				<main id="page">{props.children}</main>
 			</div>
 		</div>
 	)
