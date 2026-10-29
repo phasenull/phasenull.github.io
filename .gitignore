@@ -12,7 +12,6 @@ dist
 dist-ssr
 *.local
 dist
-public
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -25,3 +24,5 @@ public
 *.sln
 *.sw?
 .env
+# cf build output and generated types
+.cloudflare/

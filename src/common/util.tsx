@@ -64,7 +64,8 @@ export function tokenizeProjectContent(paragraph: string) {
 export function cleanURL(url_string?: string) {
 	if (!url_string) return
 
-	const url = new URL(url_string);
+	const url = parseHttpURL(url_string)
+	if (!url) return
 	const host = url.hostname
 	// console.log("cleanURL: host:", host)
 	if (!["phasenull.dev","pbs.twimg.com",`cdn.${HOST_NAME}`,"video.twimg.com",`www.${HOST_NAME}`,`${HOST_NAME}`,"www.youtube.com","www.github.com","github.com","x.com","www.linkedin.com","www.roblox.com","discord.com"].includes(host)) {
@@ -72,4 +73,16 @@ export function cleanURL(url_string?: string) {
 		return
 	}
 	return url_string
+}
+
+// returns the parsed url only if it is an absolute http(s) url (blocks javascript:, data:, etc.)
+export function parseHttpURL(url_string?: string) {
+	if (!url_string) return
+	try {
+		const url = new URL(url_string)
+		if (url.protocol !== "https:" && url.protocol !== "http:") return
+		return url
+	} catch {
+		return
+	}
 }

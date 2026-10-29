@@ -4,7 +4,7 @@ import UrlConsent from "./components/url-consent"
 export default function IndexPage() {
 	const { id, tag } = useParams<{ id: string; tag?:string}>()
 	return (
-		<div className="">
+		<div>
 			<UrlConsent/>
 			
 			<ProjectsBody id={id} tag={tag} />

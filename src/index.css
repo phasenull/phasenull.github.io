@@ -1,1 +1,39 @@
 @import "tailwindcss";
+
+/* 21:9 and wider screens: wide enough for a 3-column project grid */
+@custom-variant ultrawide (@media (min-width: 1920px) and (min-aspect-ratio: 2/1));
+
+@theme {
+	--font-sans: "Nunito Variable", ui-rounded, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+	/* banner palette */
+	--color-slime-50: #edfdf4;
+	--color-slime-100: #d3fae4;
+	--color-slime-200: #a9f3cb;
+	--color-slime-300: #72e9a9;
+	--color-slime-400: #3ee68b;
+	--color-slime-500: #22c771;
+	--color-slime-600: #16a35a;
+	--color-slime-700: #12804a;
+	--color-sky-blob: #3d8be6;
+	--color-grape-blob: #8b5cf6;
+}
+
+
+@layer base {
+	html {
+		-webkit-font-smoothing: antialiased;
+	}
+	body {
+		@apply bg-slime-50 font-sans text-slate-700;
+	}
+	::selection {
+		@apply bg-slime-200 text-slate-900;
+	}
+}
+
+/* project card pointed at by a hovered dot in the project rail */
+article[data-rail-target] {
+	outline: 3px solid var(--color-slime-400);
+	outline-offset: 4px;
+}
